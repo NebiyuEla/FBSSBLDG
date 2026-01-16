@@ -15,7 +15,123 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --light: #f8fafc;
+            --light: #f8fafc;/* Video Player */
+.video-player {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(45deg, #000, #222);
+    z-index: 2;
+}
+
+.video-placeholder i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #00f2ea;
+}
+
+.video-placeholder h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.video-real {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none;
+    z-index: 3;
+}
+
+.video-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.video-player:hover .video-controls {
+    opacity: 1;
+}
+
+.control-btn {
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+}
+
+.control-btn:hover {
+    background: var(--primary);
+    transform: scale(1.1);
+}
+
+.video-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    color: var(--gray);
+    font-size: 0.9rem;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+@media (max-width: 768px) {
+    .video-container {
+        height: 350px;
+    }
+    
+    .video-placeholder i {
+        font-size: 3rem;
+    }
+    
+    .video-placeholder h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-container {
+        height: 250px;
+    }
+    
+    .control-btn {
+        width: 40px;
+        height: 40px;
+    }
+}
             --dark: #1e293b;
             --gray: #64748b;
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -245,32 +361,123 @@
             margin: 20px 0;
         }
         
-        .video-player {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: #000;
-        }
-        
-        .video-loading {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: white;
-            background: #000;
-        }
-        
-        .video-loading i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
+/* Video Player */
+.video-player {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(45deg, #000, #222);
+    z-index: 2;
+}
+
+.video-placeholder i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #00f2ea;
+}
+
+.video-placeholder h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.video-real {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none;
+    z-index: 3;
+}
+
+.video-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.video-player:hover .video-controls {
+    opacity: 1;
+}
+
+.control-btn {
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+}
+
+.control-btn:hover {
+    background: var(--primary);
+    transform: scale(1.1);
+}
+
+.video-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    color: var(--gray);
+    font-size: 0.9rem;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+@media (max-width: 768px) {
+    .video-container {
+        height: 350px;
+    }
+    
+    .video-placeholder i {
+        font-size: 3rem;
+    }
+    
+    .video-placeholder h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-container {
+        height: 250px;
+    }
+    
+    .control-btn {
+        width: 40px;
+        height: 40px;
+    }
+}
         
         /* Contact Section - Simplified */
         .contact-section {
@@ -1387,53 +1594,268 @@
         }
         
         // Update video display with AUTO-PLAY
-        function updateVideoDisplay() {
-            if (!state.videoUrl) return;
+// Update video display with REAL autoplay
+function updateVideoDisplay() {
+    if (!state.videoUrl) return;
+    
+    const videoPlayer = document.getElementById('videoPlayer');
+    const placeholder = document.getElementById('videoPlaceholder');
+    
+    // Extract video ID from TikTok URL
+    const videoIdMatch = state.videoUrl.match(/\/video\/(\d+)/);
+    if (!videoIdMatch) return;
+    
+    const videoId = videoIdMatch[1];
+    
+    // Create a better video display approach
+    // Since TikTok doesn't allow autoplay, we'll create a different experience
+    
+    // Create video element for autoplay
+    let videoElement = document.getElementById('realVideo');
+    
+    if (!videoElement) {
+        videoElement = document.createElement('video');
+        videoElement.id = 'realVideo';
+        videoElement.className = 'video-real';
+        videoElement.controls = true;
+        videoElement.autoplay = true;
+        videoElement.muted = false; // Try unmuted autoplay
+        videoElement.playsInline = true; // For iOS
+        videoElement.preload = "auto";
+        
+        // Add event listeners
+        videoElement.addEventListener('loadeddata', function() {
+            console.log('Video loaded, attempting autoplay');
+            videoElement.play().catch(e => {
+                console.log('Autoplay failed:', e);
+                // Show placeholder if autoplay fails
+                placeholder.style.display = 'flex';
+            });
+        });
+        
+        videoElement.addEventListener('play', function() {
+            console.log('Video playing');
+            placeholder.style.display = 'none';
+        });
+        
+        videoElement.addEventListener('error', function() {
+            console.log('Video error, showing TikTok link');
+            showTikTokLink(videoId);
+        });
+        
+        videoPlayer.appendChild(videoElement);
+    }
+    
+    // Try to fetch video from TikTok API (using a proxy approach)
+    fetchTikTokVideo(videoId).then(videoUrl => {
+        if (videoUrl) {
+            videoElement.src = videoUrl;
+            videoElement.load();
             
-            // Extract video ID from TikTok URL
-            const videoIdMatch = state.videoUrl.match(/\/video\/(\d+)/);
-            if (!videoIdMatch) return;
+            // Create controls
+            createVideoControls();
             
-            const videoId = videoIdMatch[1];
+            // Try to play automatically
+            setTimeout(() => {
+                videoElement.play().then(() => {
+                    console.log('Autoplay successful');
+                    placeholder.style.display = 'none';
+                }).catch(e => {
+                    console.log('Autoplay blocked, showing placeholder');
+                    // Show play button on placeholder
+                    placeholder.innerHTML = `
+                        <div class="play-btn-large" onclick="playVideo()">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <h3>Latest Construction Update</h3>
+                        <p>Click to play video</p>
+                    `;
+                    placeholder.style.display = 'flex';
+                });
+            }, 1000);
+        } else {
+            // Fallback to TikTok embed
+            showTikTokLink(videoId);
+        }
+    }).catch(error => {
+        console.log('Failed to fetch video, using TikTok link');
+        showTikTokLink(videoId);
+    });
+    
+    // Update TikTok link
+    const originalLink = document.getElementById('originalVideoLink');
+    if (originalLink) {
+        originalLink.href = state.videoUrl;
+    }
+}
+
+// Create video controls
+function createVideoControls() {
+    const videoPlayer = document.getElementById('videoPlayer');
+    let controls = document.getElementById('videoControls');
+    
+    if (!controls) {
+        controls = document.createElement('div');
+        controls.id = 'videoControls';
+        controls.className = 'video-controls';
+        
+        const playBtn = document.createElement('button');
+        playBtn.className = 'control-btn';
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        playBtn.onclick = togglePlay;
+        
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'control-btn';
+        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+        fullscreenBtn.onclick = toggleFullscreen;
+        
+        controls.appendChild(playBtn);
+        controls.appendChild(fullscreenBtn);
+        videoPlayer.appendChild(controls);
+    }
+}
+
+// Fetch TikTok video URL (using a proxy service)
+async function fetchTikTokVideo(videoId) {
+    try {
+        // Using a TikTok video downloader API (example)
+        const proxyUrl = `https://corsproxy.io/?url=https://www.tiktok.com/oembed?url=https://www.tiktok.com/@tiktok/video/${videoId}`;
+        
+        const response = await fetch(proxyUrl);
+        if (response.ok) {
+            const data = await response.json();
             
-            // Create TikTok embed URL for auto-play
-            // Note: TikTok doesn't officially support autoplay in embeds
-            // This is a workaround using their embed with play parameters
-            const embedUrl = `https://www.tiktok.com/embed/v2/${videoId}?autoplay=1&muted=0`;
-            
-            // Create a new iframe for auto-play
-            const iframe = document.createElement('iframe');
-            iframe.id = 'tiktokIframe';
-            iframe.className = 'video-player';
-            iframe.src = embedUrl;
-            iframe.frameBorder = '0';
-            iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
-            iframe.allowFullscreen = true;
-            iframe.style.display = 'block';
-            
-            // Replace existing iframe
-            const oldIframe = document.getElementById('tiktokIframe');
-            if (oldIframe) {
-                oldIframe.parentNode.removeChild(oldIframe);
+            // Try to extract video URL from oEmbed data
+            if (data.html) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data.html, 'text/html');
+                const iframe = doc.querySelector('iframe');
+                if (iframe && iframe.src) {
+                    return iframe.src;
+                }
             }
             
-            // Hide loading and show iframe
-            elements.videoLoading.style.display = 'none';
-            elements.tiktokVideo.parentNode.appendChild(iframe);
-            
-            // Try to force autoplay after iframe loads
-            iframe.onload = function() {
-                setTimeout(() => {
-                    try {
-                        // Try to send play command to iframe
-                        iframe.contentWindow.postMessage('play', '*');
-                    } catch (e) {
-                        // Autoplay might be blocked by browser
-                        console.log('Autoplay might be blocked by browser settings');
-                    }
-                }, 1000);
-            };
+            // Alternative: Use TikTok video API
+            return `https://www.tiktok.com/embed/v2/${videoId}`;
         }
+    } catch (error) {
+        console.log('Error fetching TikTok video:', error);
+    }
+    
+    return null;
+}
+
+// Show TikTok link as fallback
+function showTikTokLink(videoId) {
+    const videoPlayer = document.getElementById('videoPlayer');
+    const placeholder = document.getElementById('videoPlaceholder');
+    
+    // Create TikTok embed
+    placeholder.innerHTML = `
+        <i class="fab fa-tiktok" style="font-size: 4rem; margin-bottom: 20px; color: #00f2ea;"></i>
+        <h3>Watch on TikTok</h3>
+        <p>Click below to watch the latest update</p>
+        <a href="${state.videoUrl}" target="_blank" style="margin-top: 20px; padding: 10px 20px; background: #00f2ea; color: black; border-radius: 20px; text-decoration: none; font-weight: bold;">
+            <i class="fab fa-tiktok"></i> Watch Video
+        </a>
+    `;
+    placeholder.style.display = 'flex';
+    
+    // Also create hidden iframe for potential autoplay
+    const iframe = document.createElement('iframe');
+    iframe.id = 'tiktokEmbed';
+    iframe.style.display = 'none';
+    iframe.src = `https://www.tiktok.com/embed/v2/${videoId}`;
+    iframe.allow = 'autoplay';
+    videoPlayer.appendChild(iframe);
+}
+
+// Video control functions
+function playVideo() {
+    const video = document.getElementById('realVideo');
+    const placeholder = document.getElementById('videoPlaceholder');
+    
+    if (video) {
+        video.play().then(() => {
+            placeholder.style.display = 'none';
+        }).catch(e => {
+            console.log('Play failed:', e);
+            // Redirect to TikTok
+            window.open(state.videoUrl, '_blank');
+        });
+    } else {
+        // If no video element, open TikTok
+        window.open(state.videoUrl, '_blank');
+    }
+}
+
+function togglePlay() {
+    const video = document.getElementById('realVideo');
+    const playBtn = document.querySelector('#videoControls .control-btn i');
+    
+    if (video) {
+        if (video.paused) {
+            video.play();
+            playBtn.className = 'fas fa-pause';
+        } else {
+            video.pause();
+            playBtn.className = 'fas fa-play';
+        }
+    }
+}
+
+function toggleFullscreen() {
+    const videoPlayer = document.getElementById('videoPlayer');
+    const video = document.getElementById('realVideo');
+    
+    if (videoPlayer.requestFullscreen) {
+        videoPlayer.requestFullscreen();
+    } else if (videoPlayer.webkitRequestFullscreen) {
+        videoPlayer.webkitRequestFullscreen();
+    } else if (videoPlayer.msRequestFullscreen) {
+        videoPlayer.msRequestFullscreen();
+    } else if (video && video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
+    }
+}
+
+// Add these styles for play button
+const style = document.createElement('style');
+style.textContent = `
+    .play-btn-large {
+        width: 80px;
+        height: 80px;
+        background: rgba(37, 99, 235, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-bottom: 20px;
+    }
+    
+    .play-btn-large:hover {
+        background: var(--primary);
+        transform: scale(1.1);
+    }
+    
+    .video-player:hover .video-real {
+        opacity: 1;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+`;
+document.head.appendChild(style);
         
         // Render comments
         function renderComments() {
@@ -1863,4 +2285,5 @@
     </script>
 </body>
 </html>
+
 
