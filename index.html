@@ -848,34 +848,50 @@
         </div>
         
         <!-- Video Section - Auto Play Only -->
-        <div class="video-section">
-            <div class="section-header">
-                <h2><i class="fas fa-video"></i> Latest Video Update</h2>
-                <div style="color: var(--gray); font-size: 0.9rem;">
-                    <i class="fas fa-eye"></i> <span id="videoViews">1,245</span> views
-                </div>
-            </div>
-            
-            <div class="video-container">
-                <div class="video-loading" id="videoLoading">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Loading video...</p>
-                </div>
-                <iframe 
-                    class="video-player"
-                    id="tiktokVideo"
-                    src="" 
-                    frameborder="0" 
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowfullscreen
-                    style="display: none;"
-                ></iframe>
-            </div>
-            
-            <div style="margin-top: 15px;" id="videoDescription">
-                <strong>This Week:</strong> <span id="videoDescText">Loading description...</span>
+<!-- Video Section - Auto Play with Real Video Player -->
+<div class="video-section">
+    <div class="section-header">
+        <h2><i class="fas fa-video"></i> Latest Video Update</h2>
+        <div style="color: var(--gray); font-size: 0.9rem;">
+            <i class="fas fa-eye"></i> <span id="videoViews">1,245</span> views
+        </div>
+    </div>
+    
+    <div class="video-container">
+        <!-- We'll use a video player instead of TikTok embed for autoplay -->
+        <div class="video-player" id="videoPlayer">
+            <div class="video-placeholder" id="videoPlaceholder">
+                <i class="fab fa-tiktok"></i>
+                <h3>Latest Construction Update</h3>
+                <p>Video will play automatically</p>
             </div>
         </div>
+        
+        <!-- Hidden iframe for TikTok (backup) -->
+        <iframe 
+            id="tiktokBackup"
+            style="display: none;"
+            allow="autoplay"
+        ></iframe>
+    </div>
+    
+    <div style="margin-top: 15px;" id="videoDescription">
+        <strong>This Week:</strong> <span id="videoDescText">Loading description...</span>
+    </div>
+    
+    <div class="video-info">
+        <div>
+            <i class="far fa-calendar"></i> 
+            <span id="videoDate">Today</span>
+        </div>
+        <div>
+            <i class="fas fa-external-link-alt"></i> 
+            <a href="#" id="originalVideoLink" target="_blank" style="color: var(--primary); text-decoration: none;">
+                Watch on TikTok
+            </a>
+        </div>
+    </div>
+</div>
         
         <!-- Contact Section - Simplified -->
         <div class="contact-section">
@@ -1847,3 +1863,4 @@
     </script>
 </body>
 </html>
+
