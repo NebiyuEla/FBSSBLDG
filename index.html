@@ -15,274 +15,7 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --light: #f8fafc;/* Video Player */
-/* Video Thumbnail */
-.video-thumbnail {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #000, #222);
-    border-radius: var(--radius);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.video-thumbnail:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-}
-
-.video-thumbnail:hover .play-overlay {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.thumbnail-content {
-    text-align: center;
-    color: white;
-    padding: 20px;
-    z-index: 2;
-    position: relative;
-}
-
-.thumbnail-content i.fa-tiktok {
-    font-size: 4rem;
-    color: #00f2ea;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.thumbnail-content h3 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.thumbnail-content p {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-bottom: 20px;
-}
-
-.play-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 1;
-}
-
-.play-overlay i {
-    font-size: 5rem;
-    color: #00f2ea;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-}
-
-/* Auto-play notification */
-.auto-play-notice {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 3;
-}
-
-/* Video info styles */
-.video-info {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    color: var(--gray);
-    font-size: 0.9rem;
-    padding-top: 15px;
-    border-top: 1px solid #e2e8f0;
-}
-
-.video-info a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.video-info a:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
-}
-
-@media (max-width: 768px) {
-    .video-container {
-        height: 350px;
-    }
-    
-    .thumbnail-content i.fa-tiktok {
-        font-size: 3rem;
-    }
-    
-    .thumbnail-content h3 {
-        font-size: 1.4rem;
-    }
-    
-    .play-overlay i {
-        font-size: 4rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .video-container {
-        height: 250px;
-    }
-    
-    .thumbnail-content i.fa-tiktok {
-        font-size: 2.5rem;
-    }
-    
-    .thumbnail-content h3 {
-        font-size: 1.2rem;
-    }
-    
-    .thumbnail-content p {
-        font-size: 0.9rem;
-    }
-    
-    .play-overlay i {
-        font-size: 3rem;
-    }
-}
-.video-player {
-    width: 100%;
-    height: 100%;
-    background: #000;
-    position: relative;
-    border-radius: var(--radius);
-    overflow: hidden;
-}
-
-.video-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(45deg, #000, #222);
-    z-index: 2;
-}
-
-.video-placeholder i {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    color: #00f2ea;
-}
-
-.video-placeholder h3 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-}
-
-.video-real {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: none;
-    z-index: 3;
-}
-
-.video-controls {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    z-index: 4;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.video-player:hover .video-controls {
-    opacity: 1;
-}
-
-.control-btn {
-    width: 45px;
-    height: 45px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border: none;
-    transition: all 0.3s;
-}
-
-.control-btn:hover {
-    background: var(--primary);
-    transform: scale(1.1);
-}
-
-.video-info {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    color: var(--gray);
-    font-size: 0.9rem;
-    padding-top: 15px;
-    border-top: 1px solid #e2e8f0;
-}
-
-@media (max-width: 768px) {
-    .video-container {
-        height: 350px;
-    }
-    
-    .video-placeholder i {
-        font-size: 3rem;
-    }
-    
-    .video-placeholder h3 {
-        font-size: 1.2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .video-container {
-        height: 250px;
-    }
-    
-    .control-btn {
-        width: 40px;
-        height: 40px;
-    }
-}
+            --light: #f8fafc;
             --dark: #1e293b;
             --gray: #64748b;
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -461,7 +194,7 @@
             transition: width 1s ease-in-out;
         }
         
-        /* Gallery Grid - Simplified */
+        /* Gallery Grid */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -493,7 +226,7 @@
             transform: scale(1.1);
         }
         
-        /* Video Section - Auto Play Only */
+        /* Video Section */
         .video-section {
             background: white;
             border-radius: var(--radius);
@@ -512,125 +245,90 @@
             margin: 20px 0;
         }
         
-/* Video Player */
-.video-player {
-    width: 100%;
-    height: 100%;
-    background: #000;
-    position: relative;
-    border-radius: var(--radius);
-    overflow: hidden;
-}
-
-.video-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(45deg, #000, #222);
-    z-index: 2;
-}
-
-.video-placeholder i {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    color: #00f2ea;
-}
-
-.video-placeholder h3 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-}
-
-.video-real {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: none;
-    z-index: 3;
-}
-
-.video-controls {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    z-index: 4;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.video-player:hover .video-controls {
-    opacity: 1;
-}
-
-.control-btn {
-    width: 45px;
-    height: 45px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border: none;
-    transition: all 0.3s;
-}
-
-.control-btn:hover {
-    background: var(--primary);
-    transform: scale(1.1);
-}
-
-.video-info {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    color: var(--gray);
-    font-size: 0.9rem;
-    padding-top: 15px;
-    border-top: 1px solid #e2e8f0;
-}
-
-@media (max-width: 768px) {
-    .video-container {
-        height: 350px;
-    }
-    
-    .video-placeholder i {
-        font-size: 3rem;
-    }
-    
-    .video-placeholder h3 {
-        font-size: 1.2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .video-container {
-        height: 250px;
-    }
-    
-    .control-btn {
-        width: 40px;
-        height: 40px;
-    }
-}
+        /* Video Thumbnail */
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #000, #222);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
         
-        /* Contact Section - Simplified */
+        .video-thumbnail:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .thumbnail-content {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .thumbnail-content i.fa-tiktok {
+            font-size: 4rem;
+            color: #00f2ea;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .thumbnail-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .thumbnail-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        
+        .video-thumbnail:hover .play-overlay {
+            opacity: 1;
+        }
+        
+        .play-overlay i {
+            font-size: 5rem;
+            color: #00f2ea;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+        
+        /* Video info */
+        .video-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        /* Contact Section */
         .contact-section {
             background: white;
             border-radius: var(--radius);
@@ -782,7 +480,7 @@
             white-space: nowrap;
         }
         
-        /* Footer - Simplified */
+        /* Footer */
         .footer {
             background: var(--dark);
             color: white;
@@ -1008,6 +706,18 @@
                 height: 350px;
             }
             
+            .thumbnail-content i.fa-tiktok {
+                font-size: 3rem;
+            }
+            
+            .thumbnail-content h3 {
+                font-size: 1.4rem;
+            }
+            
+            .play-overlay i {
+                font-size: 4rem;
+            }
+            
             .form-row {
                 grid-template-columns: 1fr;
             }
@@ -1040,6 +750,22 @@
             
             .video-container {
                 height: 250px;
+            }
+            
+            .thumbnail-content i.fa-tiktok {
+                font-size: 2.5rem;
+            }
+            
+            .thumbnail-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .thumbnail-content p {
+                font-size: 0.9rem;
+            }
+            
+            .play-overlay i {
+                font-size: 3rem;
             }
             
             .gallery-grid {
@@ -1082,9 +808,22 @@
             text-align: center;
         }
         
-        /* Auto-number counting */
         .count-up {
             animation: countUp 1s ease-out;
+        }
+        
+        /* Video Description Styles */
+        .video-description {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .video-description strong {
+            color: var(--primary);
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -1179,7 +918,7 @@
             </div>
         </div>
         
-        <!-- Photo Gallery - Labels Removed -->
+        <!-- Photo Gallery -->
         <div class="progress-card">
             <div class="section-header">
                 <h2><i class="fas fa-images"></i> Construction Gallery</h2>
@@ -1205,50 +944,49 @@
             </div>
         </div>
         
-        <!-- Video Section - Auto Play Only -->
-<!-- Video Section - Auto Play with Real Video Player -->
-<!-- Video Section - Simple Direct Link -->
-<div class="video-section">
-    <div class="section-header">
-        <h2><i class="fas fa-video"></i> Latest Video Update</h2>
-        <div style="color: var(--gray); font-size: 0.9rem;">
-            <i class="fas fa-eye"></i> <span id="videoViews">1,245</span> views
-        </div>
-    </div>
-    
-    <div class="video-container">
-        <!-- Simple clickable video thumbnail that opens TikTok -->
-        <div class="video-thumbnail" id="videoThumbnail" onclick="openTikTokVideo()">
-            <div class="thumbnail-content">
-                <i class="fab fa-tiktok"></i>
-                <h3>Latest Construction Update</h3>
-                <p>Click to watch the video</p>
-                <div class="play-overlay">
-                    <i class="fas fa-play-circle"></i>
+        <!-- Video Section - Simple TikTok Link -->
+        <div class="video-section">
+            <div class="section-header">
+                <h2><i class="fas fa-video"></i> Latest Video Update</h2>
+                <div style="color: var(--gray); font-size: 0.9rem;">
+                    <i class="fas fa-eye"></i> <span id="videoViews">1,245</span> views
+                </div>
+            </div>
+            
+            <div class="video-container">
+                <!-- Simple clickable video thumbnail that opens TikTok -->
+                <div class="video-thumbnail" id="videoThumbnail" onclick="openTikTokVideo()">
+                    <div class="thumbnail-content">
+                        <i class="fab fa-tiktok"></i>
+                        <h3>Latest Construction Update</h3>
+                        <p>Click to watch the video</p>
+                        <div class="play-overlay">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video Description Section -->
+            <div class="video-description" id="videoDescription">
+                <strong>Description:</strong> <span id="videoDescText">Latest construction progress update.</span>
+            </div>
+            
+            <div class="video-info">
+                <div>
+                    <i class="far fa-calendar"></i> 
+                    <span id="videoDate">Today</span>
+                </div>
+                <div>
+                    <i class="fas fa-external-link-alt"></i> 
+                    <a href="#" id="originalVideoLink" target="_blank" style="color: var(--primary); text-decoration: none;">
+                        Watch on TikTok
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div style="margin-top: 15px;" id="videoDescription">
-        <strong>This Week:</strong> <span id="videoDescText">Loading description...</span>
-    </div>
-    
-    <div class="video-info">
-        <div>
-            <i class="far fa-calendar"></i> 
-            <span id="videoDate">Today</span>
-        </div>
-        <div>
-            <i class="fas fa-external-link-alt"></i> 
-            <a href="#" id="originalVideoLink" target="_blank" style="color: var(--primary); text-decoration: none;">
-                Watch on TikTok
-            </a>
-        </div>
-    </div>
-</div>
         
-        <!-- Contact Section - Simplified -->
+        <!-- Contact Section -->
         <div class="contact-section">
             <div class="section-header">
                 <h2><i class="fas fa-phone-alt"></i> Contact Information</h2>
@@ -1324,7 +1062,7 @@
         </div>
     </div>
     
-    <!-- Footer - Simplified -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -1394,6 +1132,33 @@
                 </button>
             </div>
             
+            <!-- Progress Management -->
+            <div class="modal-section">
+                <h3><i class="fas fa-chart-line"></i> Progress Settings</h3>
+                <div class="form-group">
+                    <label class="form-label">Construction Progress: <span id="adminProgressValue">65%</span></label>
+                    <input type="range" id="adminProgress" class="form-input" min="0" max="100" value="65" step="1">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--gray);">
+                        <span>0%</span>
+                        <span>50%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="adminDays">Days Left</label>
+                        <input type="number" id="adminDays" class="form-input" value="45" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="adminFunds">Funds Raised (ETB)</label>
+                        <input type="text" id="adminFunds" class="form-input" value="12,450,000">
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="updateProgressBtn">
+                    <i class="fas fa-save"></i> Update Progress
+                </button>
+            </div>
+            
             <!-- Video Management -->
             <div class="modal-section">
                 <h3><i class="fas fa-video"></i> Video Settings</h3>
@@ -1403,32 +1168,10 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="adminVideoDesc">Video Description</label>
-                    <textarea id="adminVideoDesc" class="form-textarea" rows="2"></textarea>
+                    <textarea id="adminVideoDesc" class="form-textarea" rows="2" placeholder="Enter video description"></textarea>
                 </div>
                 <button class="btn btn-primary" id="updateVideoBtn">
                     <i class="fas fa-sync-alt"></i> Update Video
-                </button>
-            </div>
-            
-            <!-- Progress Management -->
-            <div class="modal-section">
-                <h3><i class="fas fa-chart-line"></i> Progress Settings</h3>
-                <div class="form-group">
-                    <label class="form-label">Progress: <span id="adminProgressValue">65%</span></label>
-                    <input type="range" id="adminProgress" class="form-input" min="0" max="100" value="65">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="adminDays">Days Left</label>
-                        <input type="number" id="adminDays" class="form-input" value="45">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="adminFunds">Funds Raised (ETB)</label>
-                        <input type="text" id="adminFunds" class="form-input" value="12,450,000">
-                    </div>
-                </div>
-                <button class="btn btn-primary" id="updateProgressBtn">
-                    <i class="fas fa-save"></i> Update Progress
                 </button>
             </div>
             
@@ -1481,11 +1224,11 @@
         
         // Global state
         let state = {
-            progress: 65,
+            progress: 65, // This controls both stats and progress bar
             daysLeft: 45,
-            funds: "ETB 12.4M",
+            funds: "ETB 12,450,000",
             videoUrl: "https://www.tiktok.com/@logawwwww/video/7595218252356128020",
-            videoDesc: "Week 18: Roof structure completed successfully",
+            videoDesc: "Latest construction progress update with roof completion and interior work.",
             contactPhone: "+251 91 234 5678",
             lastUpdated: new Date().toISOString(),
             comments: [],
@@ -1511,8 +1254,7 @@
             syncStatus: document.getElementById('syncStatus'),
             
             // Video
-            videoLoading: document.getElementById('videoLoading'),
-            tiktokVideo: document.getElementById('tiktokVideo'),
+            videoThumbnail: document.getElementById('videoThumbnail'),
             videoDescText: document.getElementById('videoDescText'),
             videoViews: document.getElementById('videoViews'),
             
@@ -1594,7 +1336,7 @@
         
         // Initialize animated counters
         function initCounters() {
-            // Count up animation for progress
+            // Count up animation for progress - now properly syncs with state.progress
             const progressTarget = state.progress;
             let progressCurrent = 0;
             const progressInterval = setInterval(() => {
@@ -1686,11 +1428,11 @@
         
         // Render UI
         function render() {
-            // Progress bar
+            // Progress bar - NOW SYNCED WITH STATS COUNTER
             elements.progressBar.style.width = `${state.progress}%`;
             elements.progressPercent.textContent = `${state.progress}%`;
             
-            // Update counters
+            // Update counters - ALL USING THE SAME STATE.PROGRESS
             elements.progressCounter.textContent = `${state.progress}%`;
             elements.daysCounter.textContent = state.daysLeft;
             elements.fundsCounter.textContent = state.funds;
@@ -1741,272 +1483,45 @@
             renderAdminComments();
         }
         
-        // Update video display with AUTO-PLAY
-// Update video display with REAL autoplay
-// Simple video functions
-function updateVideoDisplay() {
-    if (!state.videoUrl) return;
-    
-    // Update video description
-    elements.videoDescText.textContent = state.videoDesc;
-    
-    // Update TikTok link
-    const originalLink = document.getElementById('originalVideoLink');
-    if (originalLink) {
-        originalLink.href = state.videoUrl;
-    }
-    
-    // Update video date
-    const today = new Date();
-    const videoDateElement = document.getElementById('videoDate');
-    if (videoDateElement) {
-        videoDateElement.textContent = today.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-        });
-    }
-    
-    // Extract video ID for thumbnail
-    const videoIdMatch = state.videoUrl.match(/\/video\/(\d+)/);
-    if (videoIdMatch) {
-        const videoId = videoIdMatch[1];
-        // We could fetch thumbnail here if needed, but for simplicity just use the link
-    }
-}
-
-// Open TikTok video in new tab
-function openTikTokVideo() {
-    if (!state.videoUrl) return;
-    
-    // Open TikTok video in new tab
-    window.open(state.videoUrl, '_blank');
-    
-    // Track video play
-    state.videoViews = (state.videoViews || 0) + 1;
-    elements.videoViews.textContent = state.videoViews.toLocaleString();
-    
-    // Save to server
-    saveToServer();
-}
-
-// Auto-play video after a delay (if user doesn't click)
-function setupAutoPlay() {
-    // Auto-play after 3 seconds
-    setTimeout(() => {
-        if (!state.videoUrl) return;
-        
-        // Create auto-play notice
-        const thumbnail = document.getElementById('videoThumbnail');
-        if (thumbnail) {
-            const notice = document.createElement('div');
-            notice.className = 'auto-play-notice';
-            notice.innerHTML = '<i class="fas fa-clock"></i> Opening in 3...';
-            thumbnail.appendChild(notice);
+        // Update video display
+        function updateVideoDisplay() {
+            if (!state.videoUrl) return;
             
-            // Countdown
-            let count = 3;
-            const countdown = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    notice.innerHTML = `<i class="fas fa-clock"></i> Opening in ${count}...`;
-                } else {
-                    clearInterval(countdown);
-                    notice.innerHTML = '<i class="fas fa-play"></i> Opening video...';
-                    // Open video
-                    openTikTokVideo();
-                    // Remove notice after 1 second
-                    setTimeout(() => {
-                        if (notice.parentNode) {
-                            notice.parentNode.removeChild(notice);
-                        }
-                    }, 1000);
-                }
-            }, 1000);
-        }
-    }, 3000);
-}
-
-// Call this in your render function
-function render() {
-    // ... existing code ...
-    updateVideoDisplay();
-    // ... existing code ...
-}
-
-// Call setupAutoPlay when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    // ... existing initialization code ...
-    setupAutoPlay();
-});
-
-// Create video controls
-function createVideoControls() {
-    const videoPlayer = document.getElementById('videoPlayer');
-    let controls = document.getElementById('videoControls');
-    
-    if (!controls) {
-        controls = document.createElement('div');
-        controls.id = 'videoControls';
-        controls.className = 'video-controls';
-        
-        const playBtn = document.createElement('button');
-        playBtn.className = 'control-btn';
-        playBtn.innerHTML = '<i class="fas fa-play"></i>';
-        playBtn.onclick = togglePlay;
-        
-        const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'control-btn';
-        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-        fullscreenBtn.onclick = toggleFullscreen;
-        
-        controls.appendChild(playBtn);
-        controls.appendChild(fullscreenBtn);
-        videoPlayer.appendChild(controls);
-    }
-}
-
-// Fetch TikTok video URL (using a proxy service)
-async function fetchTikTokVideo(videoId) {
-    try {
-        // Using a TikTok video downloader API (example)
-        const proxyUrl = `https://corsproxy.io/?url=https://www.tiktok.com/oembed?url=https://www.tiktok.com/@tiktok/video/${videoId}`;
-        
-        const response = await fetch(proxyUrl);
-        if (response.ok) {
-            const data = await response.json();
+            // Update video description
+            elements.videoDescText.textContent = state.videoDesc;
             
-            // Try to extract video URL from oEmbed data
-            if (data.html) {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.html, 'text/html');
-                const iframe = doc.querySelector('iframe');
-                if (iframe && iframe.src) {
-                    return iframe.src;
-                }
+            // Update TikTok link
+            const originalLink = document.getElementById('originalVideoLink');
+            if (originalLink) {
+                originalLink.href = state.videoUrl;
             }
             
-            // Alternative: Use TikTok video API
-            return `https://www.tiktok.com/embed/v2/${videoId}`;
+            // Update video date
+            const today = new Date();
+            const videoDateElement = document.getElementById('videoDate');
+            if (videoDateElement) {
+                videoDateElement.textContent = today.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+            }
         }
-    } catch (error) {
-        console.log('Error fetching TikTok video:', error);
-    }
-    
-    return null;
-}
-
-// Show TikTok link as fallback
-function showTikTokLink(videoId) {
-    const videoPlayer = document.getElementById('videoPlayer');
-    const placeholder = document.getElementById('videoPlaceholder');
-    
-    // Create TikTok embed
-    placeholder.innerHTML = `
-        <i class="fab fa-tiktok" style="font-size: 4rem; margin-bottom: 20px; color: #00f2ea;"></i>
-        <h3>Watch on TikTok</h3>
-        <p>Click below to watch the latest update</p>
-        <a href="${state.videoUrl}" target="_blank" style="margin-top: 20px; padding: 10px 20px; background: #00f2ea; color: black; border-radius: 20px; text-decoration: none; font-weight: bold;">
-            <i class="fab fa-tiktok"></i> Watch Video
-        </a>
-    `;
-    placeholder.style.display = 'flex';
-    
-    // Also create hidden iframe for potential autoplay
-    const iframe = document.createElement('iframe');
-    iframe.id = 'tiktokEmbed';
-    iframe.style.display = 'none';
-    iframe.src = `https://www.tiktok.com/embed/v2/${videoId}`;
-    iframe.allow = 'autoplay';
-    videoPlayer.appendChild(iframe);
-}
-
-// Video control functions
-function playVideo() {
-    const video = document.getElementById('realVideo');
-    const placeholder = document.getElementById('videoPlaceholder');
-    
-    if (video) {
-        video.play().then(() => {
-            placeholder.style.display = 'none';
-        }).catch(e => {
-            console.log('Play failed:', e);
-            // Redirect to TikTok
+        
+        // Open TikTok video in new tab - NO AUTO-PLAY
+        function openTikTokVideo() {
+            if (!state.videoUrl) return;
+            
+            // Open TikTok video in new tab
             window.open(state.videoUrl, '_blank');
-        });
-    } else {
-        // If no video element, open TikTok
-        window.open(state.videoUrl, '_blank');
-    }
-}
-
-function togglePlay() {
-    const video = document.getElementById('realVideo');
-    const playBtn = document.querySelector('#videoControls .control-btn i');
-    
-    if (video) {
-        if (video.paused) {
-            video.play();
-            playBtn.className = 'fas fa-pause';
-        } else {
-            video.pause();
-            playBtn.className = 'fas fa-play';
+            
+            // Track video play
+            state.videoViews = (state.videoViews || 0) + 1;
+            elements.videoViews.textContent = state.videoViews.toLocaleString();
+            
+            // Save to server
+            saveToServer();
         }
-    }
-}
-
-function toggleFullscreen() {
-    const videoPlayer = document.getElementById('videoPlayer');
-    const video = document.getElementById('realVideo');
-    
-    if (videoPlayer.requestFullscreen) {
-        videoPlayer.requestFullscreen();
-    } else if (videoPlayer.webkitRequestFullscreen) {
-        videoPlayer.webkitRequestFullscreen();
-    } else if (videoPlayer.msRequestFullscreen) {
-        videoPlayer.msRequestFullscreen();
-    } else if (video && video.webkitEnterFullscreen) {
-        video.webkitEnterFullscreen();
-    }
-}
-
-// Add these styles for play button
-const style = document.createElement('style');
-style.textContent = `
-    .play-btn-large {
-        width: 80px;
-        height: 80px;
-        background: rgba(37, 99, 235, 0.9);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5rem;
-        cursor: pointer;
-        transition: all 0.3s;
-        margin-bottom: 20px;
-    }
-    
-    .play-btn-large:hover {
-        background: var(--primary);
-        transform: scale(1.1);
-    }
-    
-    .video-player:hover .video-real {
-        opacity: 1;
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-    
-    .pulse {
-        animation: pulse 2s infinite;
-    }
-`;
-document.head.appendChild(style);
         
         // Render comments
         function renderComments() {
@@ -2152,17 +1667,27 @@ document.head.appendChild(style);
                 showNotification('Video updated successfully!', 'success');
             });
             
-            // Update progress
+            // Update progress - NOW PROPERLY UPDATES BOTH STATS AND PROGRESS BAR
             elements.updateProgressBtn.addEventListener('click', async () => {
-                state.progress = parseInt(elements.adminProgress.value);
-                state.daysLeft = parseInt(elements.adminDays.value);
-                state.funds = `ETB ${elements.adminFunds.value}`;
+                const newProgress = parseInt(elements.adminProgress.value);
+                const newDays = parseInt(elements.adminDays.value);
+                const newFunds = elements.adminFunds.value;
+                
+                // Update all progress-related state
+                state.progress = newProgress;
+                state.daysLeft = newDays;
+                state.funds = newFunds.startsWith('ETB ') ? newFunds : `ETB ${newFunds}`;
                 state.lastUpdated = new Date().toISOString();
                 
                 saveState();
                 await saveToServer();
                 render();
                 showNotification('Progress updated!', 'success');
+            });
+            
+            // Progress slider - update value display
+            elements.adminProgress.addEventListener('input', () => {
+                elements.adminProgressValue.textContent = `${elements.adminProgress.value}%`;
             });
             
             // Update phone
@@ -2174,11 +1699,6 @@ document.head.appendChild(style);
                 await saveToServer();
                 render();
                 showNotification('Phone number updated!', 'success');
-            });
-            
-            // Progress slider
-            elements.adminProgress.addEventListener('input', () => {
-                elements.adminProgressValue.textContent = `${elements.adminProgress.value}%`;
             });
             
             // Submit comment
@@ -2196,7 +1716,8 @@ document.head.appendChild(style);
                     id: Date.now(),
                     name: type === 'public' ? name : 'Anonymous',
                     text: text,
-                    type: type
+                    type: type,
+                    date: new Date().toISOString()
                 };
                 
                 // Add to state
@@ -2243,18 +1764,27 @@ document.head.appendChild(style);
             
             // Save all changes
             elements.saveAllBtn.addEventListener('click', async () => {
-                state.progress = parseInt(elements.adminProgress.value);
-                state.daysLeft = parseInt(elements.adminDays.value);
-                state.funds = `ETB ${elements.adminFunds.value}`;
-                state.videoUrl = elements.adminVideoUrl.value;
-                state.videoDesc = elements.adminVideoDesc.value;
-                state.contactPhone = elements.adminPhone.value;
+                // Get all values from admin form
+                const newProgress = parseInt(elements.adminProgress.value);
+                const newDays = parseInt(elements.adminDays.value);
+                const newFunds = elements.adminFunds.value;
+                const newVideoUrl = elements.adminVideoUrl.value;
+                const newVideoDesc = elements.adminVideoDesc.value;
+                const newPhone = elements.adminPhone.value;
+                
+                // Update state
+                state.progress = newProgress;
+                state.daysLeft = newDays;
+                state.funds = newFunds.startsWith('ETB ') ? newFunds : `ETB ${newFunds}`;
+                state.videoUrl = newVideoUrl;
+                state.videoDesc = newVideoDesc;
+                state.contactPhone = newPhone;
                 state.lastUpdated = new Date().toISOString();
                 
                 saveState();
                 await saveToServer();
                 render();
-                showNotification('All changes saved and synced worldwide!', 'success');
+                showNotification('All changes saved and synced!', 'success');
             });
             
             // Enter key in login
@@ -2436,7 +1966,3 @@ document.head.appendChild(style);
     </script>
 </body>
 </html>
-
-
-
-
