@@ -1056,6 +1056,7 @@
         
         <!-- Video Section - Auto Play Only -->
 <!-- Video Section - Auto Play with Real Video Player -->
+<!-- Video Section - Simple Direct Link -->
 <div class="video-section">
     <div class="section-header">
         <h2><i class="fas fa-video"></i> Latest Video Update</h2>
@@ -1065,21 +1066,17 @@
     </div>
     
     <div class="video-container">
-        <!-- We'll use a video player instead of TikTok embed for autoplay -->
-        <div class="video-player" id="videoPlayer">
-            <div class="video-placeholder" id="videoPlaceholder">
+        <!-- Simple clickable video thumbnail that opens TikTok -->
+        <div class="video-thumbnail" id="videoThumbnail" onclick="openTikTokVideo()">
+            <div class="thumbnail-content">
                 <i class="fab fa-tiktok"></i>
                 <h3>Latest Construction Update</h3>
-                <p>Video will play automatically</p>
+                <p>Click to watch the video</p>
+                <div class="play-overlay">
+                    <i class="fas fa-play-circle"></i>
+                </div>
             </div>
         </div>
-        
-        <!-- Hidden iframe for TikTok (backup) -->
-        <iframe 
-            id="tiktokBackup"
-            style="display: none;"
-            allow="autoplay"
-        ></iframe>
     </div>
     
     <div style="margin-top: 15px;" id="videoDescription">
@@ -2285,5 +2282,6 @@ document.head.appendChild(style);
     </script>
 </body>
 </html>
+
 
 
