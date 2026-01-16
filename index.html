@@ -1448,7 +1448,31 @@
             statistics = stats;
             
             // Save to server (simulated)
-            saveToServer();
+            // Real implementation for Vercel
+async function saveToServer(data) {
+    try {
+        const response = await fetch('/api/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Sync failed:', error);
+        // Fallback to localStorage
+        localStorage.setItem('serverData', JSON.stringify(data));
+    }
+}
+
+async function checkForUpdates() {
+    try {
+        const response = await fetch('/api/sync');
+        const serverData = await response.json();
+        applyServerUpdates(serverData);
+    } catch (error) {
+        console.error('Update check failed:', error);
+    }
+}
         }
         
         // Track video plays
@@ -2314,3 +2338,4 @@
     </script>
 </body>
 </html>
+
