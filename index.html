@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>የሰንበት ትምህርት ቤቱ ህንጻ ግንባታ - Live Updates</title>
+    <title>የሰንበት ት/ቤቱ ህንፃ ግንባታ - Live Updates</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,12 +35,14 @@
             color: var(--dark);
             background: #f5f7fa;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
         }
         
         /* Header */
@@ -51,18 +53,23 @@
             top: 0;
             z-index: 100;
             padding: 15px 0;
+            width: 100%;
         }
         
         .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .logo-section {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex: 1;
+            min-width: 250px;
         }
         
         .logo-img {
@@ -71,22 +78,29 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .logo-text {
+            flex: 1;
         }
         
         .logo-text h1 {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--dark);
+            line-height: 1.3;
         }
         
         .logo-text p {
             font-size: 0.9rem;
             color: var(--gray);
-            margin-top: 2px;
+            margin-top: 5px;
         }
         
         .live-time {
             text-align: right;
+            flex-shrink: 0;
         }
         
         .current-time {
@@ -151,6 +165,7 @@
             padding: 25px;
             margin: 30px 0;
             box-shadow: var(--shadow);
+            width: 100%;
         }
         
         .section-header {
@@ -158,6 +173,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .section-header h2 {
@@ -166,10 +183,13 @@
             gap: 10px;
             color: var(--dark);
             font-size: 1.5rem;
+            flex: 1;
+            min-width: 200px;
         }
         
         .progress-container {
             margin: 25px 0;
+            width: 100%;
         }
         
         .progress-label {
@@ -185,13 +205,14 @@
             border-radius: 10px;
             overflow: hidden;
             margin-bottom: 15px;
+            width: 100%;
         }
         
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--success));
             border-radius: 10px;
-            transition: width 1s ease-in-out;
+            transition: width 0.5s ease-out;
         }
         
         /* Gallery Grid */
@@ -200,6 +221,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin: 30px 0;
+            width: 100%;
         }
         
         .gallery-item {
@@ -209,6 +231,7 @@
             height: 200px;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            width: 100%;
         }
         
         .gallery-item:hover {
@@ -233,6 +256,7 @@
             padding: 25px;
             margin: 30px 0;
             box-shadow: var(--shadow);
+            width: 100%;
         }
         
         .video-container {
@@ -271,6 +295,7 @@
             padding: 20px;
             z-index: 2;
             position: relative;
+            width: 100%;
         }
         
         .thumbnail-content i.fa-tiktok {
@@ -326,6 +351,8 @@
             font-size: 0.9rem;
             padding-top: 15px;
             border-top: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         /* Contact Section */
@@ -335,6 +362,7 @@
             padding: 25px;
             margin: 30px 0;
             box-shadow: var(--shadow);
+            width: 100%;
         }
         
         .contact-info {
@@ -342,6 +370,7 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
+            width: 100%;
         }
         
         .contact-item {
@@ -352,6 +381,7 @@
             background: var(--light);
             border-radius: var(--radius);
             transition: var(--transition);
+            width: 100%;
         }
         
         .contact-item:hover {
@@ -369,6 +399,12 @@
             justify-content: center;
             color: white;
             font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-details {
+            flex: 1;
+            min-width: 0;
         }
         
         .contact-details h4 {
@@ -379,12 +415,14 @@
         .contact-details p {
             color: var(--gray);
             font-size: 0.9rem;
+            word-break: break-word;
         }
         
         .contact-actions {
             display: flex;
             gap: 10px;
             margin-top: 10px;
+            flex-wrap: wrap;
         }
         
         /* Comments Section */
@@ -394,6 +432,7 @@
             padding: 25px;
             margin: 30px 0;
             box-shadow: var(--shadow);
+            width: 100%;
         }
         
         .comment-form {
@@ -401,10 +440,12 @@
             padding: 20px;
             border-radius: var(--radius);
             margin-bottom: 25px;
+            width: 100%;
         }
         
         .form-group {
             margin-bottom: 15px;
+            width: 100%;
         }
         
         .form-label {
@@ -436,6 +477,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
+            width: 100%;
         }
         
         .comment {
@@ -445,6 +487,7 @@
             margin-bottom: 15px;
             border-left: 4px solid var(--primary);
             animation: slideIn 0.3s ease;
+            width: 100%;
         }
         
         .comment-header {
@@ -454,6 +497,7 @@
             margin-bottom: 10px;
             flex-wrap: wrap;
             gap: 10px;
+            width: 100%;
         }
         
         .comment-author {
@@ -462,6 +506,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
         
         .comment-badge {
@@ -472,6 +517,7 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
+            white-space: nowrap;
         }
         
         .comment-time {
@@ -486,6 +532,7 @@
             color: white;
             padding: 40px 0 20px;
             margin-top: 50px;
+            width: 100%;
         }
         
         .footer-content {
@@ -493,6 +540,10 @@
             grid-template-columns: 2fr 1fr;
             gap: 40px;
             margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            width: 100%;
         }
         
         .footer-section h3 {
@@ -505,6 +556,7 @@
             display: flex;
             gap: 15px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
         
         .social-link {
@@ -519,6 +571,7 @@
             font-size: 1.2rem;
             transition: var(--transition);
             text-decoration: none;
+            flex-shrink: 0;
         }
         
         .social-link:hover {
@@ -532,6 +585,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
+            width: 100%;
         }
         
         /* Admin Button */
@@ -590,12 +644,15 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .modal-section {
             margin-bottom: 25px;
             padding-bottom: 20px;
             border-bottom: 1px solid #e2e8f0;
+            width: 100%;
         }
         
         /* Buttons */
@@ -675,31 +732,61 @@
         }
         
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-            
+        @media (max-width: 992px) {
             .header-content {
                 flex-direction: column;
-                gap: 15px;
                 text-align: center;
             }
             
             .logo-section {
-                justify-content: center;
+                flex-direction: column;
+                text-align: center;
+                width: 100%;
+            }
+            
+            .logo-img {
+                margin: 0 auto;
             }
             
             .live-time {
                 text-align: center;
+                width: 100%;
             }
             
             .stats-counter {
                 grid-template-columns: repeat(2, 1fr);
             }
             
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .stats-counter {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                margin: 20px 0;
+            }
+            
+            .stat-item {
+                padding: 15px;
+            }
+            
             .stat-number {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .stat-icon {
+                font-size: 1.5rem;
             }
             
             .video-container {
@@ -720,15 +807,12 @@
             
             .form-row {
                 grid-template-columns: 1fr;
+                gap: 12px;
             }
             
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 15px;
             }
             
             .admin-btn {
@@ -736,14 +820,20 @@
                 right: 20px;
                 width: 50px;
                 height: 50px;
+                font-size: 1.2rem;
             }
             
             .modal-content {
                 padding: 20px;
+                margin: 10px;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
             .stats-counter {
                 grid-template-columns: 1fr;
             }
@@ -772,6 +862,11 @@
                 grid-template-columns: 1fr;
             }
             
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
             .comment-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -780,6 +875,34 @@
             .admin-btn {
                 bottom: 15px;
                 right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .progress-card,
+            .video-section,
+            .contact-section,
+            .comments-section {
+                padding: 20px 15px;
+            }
+            
+            .section-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .contact-actions {
+                flex-direction: column;
             }
         }
         
@@ -809,7 +932,7 @@
         }
         
         .count-up {
-            animation: countUp 1s ease-out;
+            animation: countUp 0.5s ease-out;
         }
         
         /* Video Description Styles */
@@ -824,6 +947,61 @@
         .video-description strong {
             color: var(--primary);
             margin-right: 10px;
+        }
+        
+        /* Loading State */
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #10b981;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 10000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.error {
+            background: #ef4444;
+        }
+        
+        /* Optimized Admin Panel */
+        .admin-input-group {
+            margin-bottom: 15px;
+        }
+        
+        .admin-input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .admin-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
     </style>
 </head>
@@ -840,7 +1018,7 @@
                     </div>
                 </div>
                 <div class="live-time">
-                    <div class="current-time" id="currentTime">--:--:--</div>
+                    <div class="current-time" id="currentTime">--:-- --</div>
                     <div class="current-date" id="currentDate">-- --- ----</div>
                 </div>
             </div>
@@ -976,12 +1154,6 @@
                 <div>
                     <i class="far fa-calendar"></i> 
                     <span id="videoDate">ዛሬ</span>
-                </div>
-                <div>
-                    <i class="fas fa-external-link-alt"></i> 
-                    <a href="#" id="originalVideoLink" target="_blank" style="color: var(--primary); text-decoration: none;">
-                        Watch on TikTok
-                    </a>
                 </div>
             </div>
         </div>
@@ -1135,9 +1307,9 @@
             <!-- Progress Management -->
             <div class="modal-section">
                 <h3><i class="fas fa-chart-line"></i> Progress Settings</h3>
-                <div class="form-group">
-                    <label class="form-label">Construction Progress: <span id="adminProgressValue">65%</span></label>
-                    <input type="range" id="adminProgress" class="form-input" min="0" max="100" value="65" step="1">
+                <div class="admin-input-group">
+                    <label>Construction Progress: <span id="adminProgressValue">65%</span></label>
+                    <input type="range" id="adminProgress" class="admin-input" min="0" max="100" value="65" step="1">
                     <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--gray);">
                         <span>0%</span>
                         <span>50%</span>
@@ -1147,7 +1319,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="adminDays">Days Left</label>
-                        <input type="number" id="adminDays" class="form-input" value="45" min="0">
+                        <input type="number" id="adminDays" class="form-input" value="50000" min="0">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="adminFunds">Funds Raised (ETB)</label>
@@ -1217,16 +1389,16 @@
         // Configuration
         const CONFIG = {
             ADMIN_PASSWORD: "21maryam27",
-            SYNC_INTERVAL: 5000, // 5 seconds
+            SYNC_INTERVAL: 10000, // 10 seconds for better performance
             API_URL: "/api/sync",
             IMAGES: ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg']
         };
         
         // Global state
         let state = {
-            progress: 40, // This controls both stats and progress bar
+            progress: 40,
             daysLeft: 50000,
-            funds: "ETB 12,450,000",
+            funds: "12,450,000",
             videoUrl: "https://vt.tiktok.com/ZS5EwCPyn/",
             videoDesc: "የግንባታው ሂደት",
             contactPhone: "+251913489062 | +251923461261",
@@ -1297,22 +1469,25 @@
             initRealTimeClock();
             loadState();
             setupEventListeners();
-            startSync();
-            initCounters();
+            render();
         });
         
-        // Real-time clock
+        // Real-time clock - 12-hour format
         function initRealTimeClock() {
             function updateTime() {
                 const now = new Date();
                 
+                // Format time in 12-hour format
+                let hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                
+                hours = hours % 12;
+                hours = hours ? hours : 12; // 0 should be 12
+                
                 // Update time
-                elements.currentTime.textContent = now.toLocaleTimeString('en-US', {
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                elements.currentTime.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
                 
                 // Update date
                 elements.currentDate.textContent = now.toLocaleDateString('en-US', {
@@ -1323,102 +1498,33 @@
                 });
                 
                 // Update footer timestamp
-                elements.footerLastUpdated.textContent = now.toLocaleTimeString('en-US', {
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
+                const footerHours = now.getHours().toString().padStart(2, '0');
+                const footerMinutes = now.getMinutes().toString().padStart(2, '0');
+                elements.footerLastUpdated.textContent = `${footerHours}:${footerMinutes}`;
             }
             
             updateTime();
             setInterval(updateTime, 1000);
         }
         
-        // Initialize animated counters
-        function initCounters() {
-            // Count up animation for progress - now properly syncs with state.progress
-            const progressTarget = state.progress;
-            let progressCurrent = 0;
-            const progressInterval = setInterval(() => {
-                progressCurrent++;
-                elements.progressCounter.textContent = `${progressCurrent}%`;
-                if (progressCurrent >= progressTarget) {
-                    clearInterval(progressInterval);
-                }
-            }, 20);
-            
-            // Count up animation for days
-            const daysTarget = state.daysLeft;
-            let daysCurrent = 0;
-            const daysInterval = setInterval(() => {
-                daysCurrent++;
-                elements.daysCounter.textContent = daysCurrent;
-                if (daysCurrent >= daysTarget) {
-                    clearInterval(daysInterval);
-                }
-            }, 30);
-            
-            // Animate funds counter
-            updateFundsCounter();
-            
-            // Animate comments counter
-            const commentsTarget = state.comments.length;
-            let commentsCurrent = 0;
-            const commentsInterval = setInterval(() => {
-                commentsCurrent++;
-                elements.commentsCounter.textContent = commentsCurrent;
-                if (commentsCurrent >= commentsTarget) {
-                    clearInterval(commentsInterval);
-                }
-            }, 100);
-        }
-        
-        // Update funds counter
-        function updateFundsCounter() {
-            const fundsText = state.funds;
-            // Extract numeric value
-            const match = fundsText.match(/(\d[\d,.]*)/);
-            if (match) {
-                const fundsValue = parseFloat(match[1].replace(/,/g, ''));
-                let fundsCurrent = 0;
-                const target = fundsValue;
-                const interval = setInterval(() => {
-                    fundsCurrent += target / 100;
-                    if (fundsCurrent >= target) {
-                        fundsCurrent = target;
-                        clearInterval(interval);
-                    }
-                    elements.fundsCounter.textContent = `ETB ${formatNumber(fundsCurrent)}`;
-                }, 20);
-            } else {
-                elements.fundsCounter.textContent = fundsText;
-            }
-        }
-        
-        // Format large numbers
-        function formatNumber(num) {
-            const rounded = Math.round(num);
-            if (rounded >= 1000000) {
-                return (rounded / 1000000).toFixed(1) + 'M';
-            }
-            if (rounded >= 1000) {
-                return (rounded / 1000).toFixed(1) + 'K';
-            }
-            return rounded.toLocaleString();
-        }
-        
-        // Load state from localStorage and server
-        async function loadState() {
-            // Try localStorage first
+        // Load state from localStorage
+        function loadState() {
             const saved = localStorage.getItem('constructionState');
             if (saved) {
                 const parsed = JSON.parse(saved);
                 state = { ...state, ...parsed };
             }
             
-            // Then sync from server
-            await syncFromServer();
-            render();
+            // Initialize counters immediately
+            initializeCounters();
+        }
+        
+        // Initialize counters without delay
+        function initializeCounters() {
+            elements.progressCounter.textContent = `${state.progress}%`;
+            elements.daysCounter.textContent = state.daysLeft;
+            elements.fundsCounter.textContent = `ETB ${state.funds}`;
+            elements.commentsCounter.textContent = state.comments.length;
         }
         
         // Save state locally
@@ -1428,14 +1534,14 @@
         
         // Render UI
         function render() {
-            // Progress bar - NOW SYNCED WITH STATS COUNTER
+            // Progress bar
             elements.progressBar.style.width = `${state.progress}%`;
             elements.progressPercent.textContent = `${state.progress}%`;
             
-            // Update counters - ALL USING THE SAME STATE.PROGRESS
+            // Update counters
             elements.progressCounter.textContent = `${state.progress}%`;
             elements.daysCounter.textContent = state.daysLeft;
-            elements.fundsCounter.textContent = state.funds;
+            elements.fundsCounter.textContent = `ETB ${state.funds}`;
             elements.commentsCounter.textContent = state.comments.length;
             
             // Update admin controls if visible
@@ -1444,7 +1550,7 @@
                 elements.adminProgressValue.textContent = `${state.progress}%`;
             }
             if (elements.adminDays) elements.adminDays.value = state.daysLeft;
-            if (elements.adminFunds) elements.adminFunds.value = state.funds.replace('ETB ', '');
+            if (elements.adminFunds) elements.adminFunds.value = state.funds;
             if (elements.adminVideoUrl) elements.adminVideoUrl.value = state.videoUrl;
             if (elements.adminVideoDesc) elements.adminVideoDesc.value = state.videoDesc;
             if (elements.adminPhone) elements.adminPhone.value = state.contactPhone;
@@ -1490,12 +1596,6 @@
             // Update video description
             elements.videoDescText.textContent = state.videoDesc;
             
-            // Update TikTok link
-            const originalLink = document.getElementById('originalVideoLink');
-            if (originalLink) {
-                originalLink.href = state.videoUrl;
-            }
-            
             // Update video date
             const today = new Date();
             const videoDateElement = document.getElementById('videoDate');
@@ -1508,7 +1608,7 @@
             }
         }
         
-        // Open TikTok video in new tab - NO AUTO-PLAY
+        // Open TikTok video in new tab
         function openTikTokVideo() {
             if (!state.videoUrl) return;
             
@@ -1518,9 +1618,7 @@
             // Track video play
             state.videoViews = (state.videoViews || 0) + 1;
             elements.videoViews.textContent = state.videoViews.toLocaleString();
-            
-            // Save to server
-            saveToServer();
+            saveState();
         }
         
         // Render comments
@@ -1538,7 +1636,10 @@
                 return;
             }
             
-            state.comments.forEach(comment => {
+            // Sort comments by date (newest first)
+            const sortedComments = [...state.comments].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedComments.forEach(comment => {
                 const commentEl = document.createElement('div');
                 commentEl.className = 'comment';
                 
@@ -1599,7 +1700,7 @@
                         <small style="color: var(--gray);">${dateStr}</small>
                     </div>
                     <div style="margin-bottom: 10px; font-size: 0.9rem;">${comment.text}</div>
-                    <button onclick="adminDeleteComment(${comment.id})" style="background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">
+                    <button onclick="deleteComment(${comment.id})" style="background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">
                         <i class="fas fa-trash"></i> Delete
                     </button>
                 `;
@@ -1646,6 +1747,7 @@
                 elements.adminModal.style.display = 'none';
             });
             
+            // Close modal when clicking outside
             [elements.loginModal, elements.adminModal].forEach(modal => {
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
@@ -1655,32 +1757,29 @@
             });
             
             // Update video
-            elements.updateVideoBtn.addEventListener('click', async () => {
+            elements.updateVideoBtn.addEventListener('click', () => {
                 state.videoUrl = elements.adminVideoUrl.value;
                 state.videoDesc = elements.adminVideoDesc.value;
                 state.videoViews = Math.floor(state.videoViews * 1.1);
                 state.lastUpdated = new Date().toISOString();
                 
                 saveState();
-                await saveToServer();
                 render();
                 showNotification('Video updated successfully!', 'success');
             });
             
-            // Update progress - NOW PROPERLY UPDATES BOTH STATS AND PROGRESS BAR
-            elements.updateProgressBtn.addEventListener('click', async () => {
+            // Update progress
+            elements.updateProgressBtn.addEventListener('click', () => {
                 const newProgress = parseInt(elements.adminProgress.value);
                 const newDays = parseInt(elements.adminDays.value);
                 const newFunds = elements.adminFunds.value;
                 
-                // Update all progress-related state
                 state.progress = newProgress;
                 state.daysLeft = newDays;
-                state.funds = newFunds.startsWith('ETB ') ? newFunds : `ETB ${newFunds}`;
+                state.funds = newFunds;
                 state.lastUpdated = new Date().toISOString();
                 
                 saveState();
-                await saveToServer();
                 render();
                 showNotification('Progress updated!', 'success');
             });
@@ -1691,21 +1790,24 @@
             });
             
             // Update phone
-            elements.updatePhoneBtn.addEventListener('click', async () => {
+            elements.updatePhoneBtn.addEventListener('click', () => {
                 state.contactPhone = elements.adminPhone.value;
                 state.lastUpdated = new Date().toISOString();
                 
                 saveState();
-                await saveToServer();
                 render();
                 showNotification('Phone number updated!', 'success');
             });
             
-            // Submit comment
-            elements.submitComment.addEventListener('click', async () => {
-                const name = document.getElementById('commentName').value.trim() || 'Anonymous';
-                const text = document.getElementById('commentText').value.trim();
-                const type = document.getElementById('commentType').value;
+            // Submit comment - FIXED
+            elements.submitComment.addEventListener('click', () => {
+                const nameInput = document.getElementById('commentName');
+                const textInput = document.getElementById('commentText');
+                const typeSelect = document.getElementById('commentType');
+                
+                const name = nameInput.value.trim() || 'Anonymous';
+                const text = textInput.value.trim();
+                const type = typeSelect.value;
                 
                 if (!text) {
                     showNotification('Please enter a message', 'error');
@@ -1722,28 +1824,32 @@
                 
                 // Add to state
                 if (!state.comments) state.comments = [];
-                state.comments.unshift(newComment);
+                state.comments.push(newComment);
                 state.lastUpdated = new Date().toISOString();
                 
-                // Save and sync
+                // Save and render
                 saveState();
-                await saveToServer();
-                
-                // Render
                 render();
                 
                 // Clear form
-                document.getElementById('commentName').value = '';
-                document.getElementById('commentText').value = '';
+                nameInput.value = '';
+                textInput.value = '';
                 
                 showNotification('Thank you for your comment!', 'success');
+            });
+            
+            // Allow Enter key to submit comment
+            document.getElementById('commentText').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    elements.submitComment.click();
+                }
             });
             
             // Delete comment by ID
             elements.deleteCommentBtn.addEventListener('click', () => {
                 const id = parseInt(elements.deleteCommentId.value);
                 if (id) {
-                    adminDeleteComment(id);
+                    deleteComment(id);
                     elements.deleteCommentId.value = '';
                 } else {
                     showNotification('Please enter a valid comment ID', 'error');
@@ -1756,14 +1862,13 @@
                     state.comments = [];
                     state.lastUpdated = new Date().toISOString();
                     saveState();
-                    saveToServer();
                     render();
                     showNotification('All comments cleared', 'success');
                 }
             });
             
             // Save all changes
-            elements.saveAllBtn.addEventListener('click', async () => {
+            elements.saveAllBtn.addEventListener('click', () => {
                 // Get all values from admin form
                 const newProgress = parseInt(elements.adminProgress.value);
                 const newDays = parseInt(elements.adminDays.value);
@@ -1775,16 +1880,15 @@
                 // Update state
                 state.progress = newProgress;
                 state.daysLeft = newDays;
-                state.funds = newFunds.startsWith('ETB ') ? newFunds : `ETB ${newFunds}`;
+                state.funds = newFunds;
                 state.videoUrl = newVideoUrl;
                 state.videoDesc = newVideoDesc;
                 state.contactPhone = newPhone;
                 state.lastUpdated = new Date().toISOString();
                 
                 saveState();
-                await saveToServer();
                 render();
-                showNotification('All changes saved and synced!', 'success');
+                showNotification('All changes saved!', 'success');
             });
             
             // Enter key in login
@@ -1795,36 +1899,15 @@
             });
         }
         
-        // Admin delete comment
-        async function adminDeleteComment(commentId) {
+        // Delete comment function
+        function deleteComment(commentId) {
             if (!confirm('Delete this comment?')) return;
             
-            try {
-                const response = await fetch(CONFIG.API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'delete-comment',
-                        commentId: commentId,
-                        timestamp: Date.now()
-                    })
-                });
-                
-                if (response.ok) {
-                    const result = await response.json();
-                    state = result.data;
-                    saveState();
-                    render();
-                    showNotification('Comment deleted', 'success');
-                }
-            } catch (error) {
-                console.error('Delete failed:', error);
-                state.comments = state.comments.filter(c => c.id !== commentId);
-                state.lastUpdated = new Date().toISOString();
-                saveState();
-                render();
-                showNotification('Comment deleted locally', 'warning');
-            }
+            state.comments = state.comments.filter(c => c.id !== commentId);
+            state.lastUpdated = new Date().toISOString();
+            saveState();
+            render();
+            showNotification('Comment deleted', 'success');
         }
         
         // Phone functions
@@ -1839,96 +1922,14 @@
             });
         }
         
-        // Server functions
-        async function saveToServer() {
-            try {
-                const response = await fetch(CONFIG.API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'save',
-                        data: state,
-                        timestamp: Date.now()
-                    })
-                });
-                
-                if (response.ok) {
-                    updateSyncStatus(true);
-                    return true;
-                }
-            } catch (error) {
-                console.error('Save failed:', error);
-            }
-            updateSyncStatus(false);
-            return false;
-        }
-        
-        async function syncFromServer() {
-            try {
-                const response = await fetch(`${CONFIG.API_URL}?_=${Date.now()}`);
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.data) {
-                        state = result.data;
-                        saveState();
-                        updateSyncStatus(true);
-                        return true;
-                    }
-                }
-            } catch (error) {
-                console.error('Sync failed:', error);
-            }
-            updateSyncStatus(false);
-            return false;
-        }
-        
-        // Start periodic sync
-        function startSync() {
-            setInterval(async () => {
-                await syncFromServer();
-                render();
-            }, CONFIG.SYNC_INTERVAL);
-            
-            // Initial sync
-            syncFromServer();
-        }
-        
-        // Update sync status
-        function updateSyncStatus(success = true) {
-            if (!elements.syncStatus) return;
-            
-            if (success) {
-                elements.syncStatus.innerHTML = '<i class="fas fa-wifi"></i> Live';
-                elements.syncStatus.style.background = '#10b981';
-            } else {
-                elements.syncStatus.innerHTML = '<i class="fas fa-wifi-slash"></i> Offline';
-                elements.syncStatus.style.background = '#ef4444';
-            }
-        }
-        
         // Notification system
         function showNotification(message, type = 'success') {
+            // Remove existing notifications
             const existing = document.querySelector('.notification');
             if (existing) existing.remove();
             
             const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 25px;
-                background: ${type === 'success' ? '#10b981' : '#ef4444'};
-                color: white;
-                border-radius: 8px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-                z-index: 10000;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                animation: slideIn 0.3s ease;
-            `;
+            notification.className = `notification ${type === 'error' ? 'error' : ''}`;
             
             notification.innerHTML = `
                 <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
@@ -1938,33 +1939,11 @@
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
+                if (notification.parentNode) {
+                    notification.remove();
+                }
             }, 3000);
-            
-            // Add animations if not present
-            if (!document.querySelector('#notification-animations')) {
-                const style = document.createElement('style');
-                style.id = 'notification-animations';
-                style.textContent = `
-                    @keyframes slideIn {
-                        from { transform: translateX(100%); opacity: 0; }
-                        to { transform: translateX(0); opacity: 1; }
-                    }
-                    @keyframes slideOut {
-                        from { transform: translateX(0); opacity: 1; }
-                        to { transform: translateX(100%); opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
         }
     </script>
 </body>
 </html>
-
-
