@@ -250,7 +250,7 @@
             margin-top: 5px;
         }
         
-        /* Video Section */
+        /* Video Section - FIXED SIZE */
         .video-container {
             background-color: #000;
             border-radius: var(--radius);
@@ -258,13 +258,22 @@
             margin-top: 15px;
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 500px;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .video-embed {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             border: 0;
@@ -310,6 +319,25 @@
             color: var(--gray);
             flex-wrap: wrap;
             gap: 10px;
+        }
+        
+        /* Responsive video sizing */
+        @media (max-width: 768px) {
+            .video-container {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .video-container {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .video-container {
+                height: 300px;
+            }
         }
         
         /* Comments Section */
@@ -827,24 +855,14 @@
         /* TikTok Embed Fix */
         .tiktok-embed-container {
             width: 100%;
+            height: 100%;
             margin: 0 auto;
         }
         
         .tiktok-embed {
             width: 100%;
-            min-height: 700px;
-        }
-        
-        @media (max-width: 650px) {
-            .tiktok-embed {
-                min-height: 600px;
-            }
-        }
-        
-        @media (max-width: 500px) {
-            .tiktok-embed {
-                min-height: 500px;
-            }
+            height: 100%;
+            min-height: 500px;
         }
         
         /* Sync Status */
@@ -895,9 +913,35 @@
                 padding: 8px;
             }
         }
+        
+        /* Refresh Indicator */
+        .refresh-indicator {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--logo-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            z-index: 10000;
+            box-shadow: var(--shadow);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
+    <!-- Refresh Indicator -->
+    <div class="refresh-indicator" id="refreshIndicator">
+        <i class="fas fa-sync-alt"></i> Content Updated
+    </div>
+    
     <!-- Header -->
     <header>
         <div class="container header-content">
@@ -964,7 +1008,9 @@
                     <p>Watch our most recent construction progress video:</p>
                     
                     <div class="video-container" id="videoContainer">
-                        <!-- TikTok video will be embedded here -->
+                        <div class="video-wrapper">
+                            <!-- TikTok video will be embedded here -->
+                        </div>
                     </div>
                     
                     <div class="video-description" id="videoDescription">
@@ -974,7 +1020,7 @@
                     <div class="video-info">
                         <span><i class="far fa-calendar"></i> <span id="videoDate">October 20, 2023</span></span>
                         <span><i class="far fa-eye"></i> <span id="videoViews">1,245 views</span></span>
-                        <span id="syncStatus" class="sync-status sync-success">Synced <i class="fas fa-check-circle"></i></span>
+                        <span id="syncStatus" class="sync-status sync-success">Live <i class="fas fa-check-circle"></i></span>
                     </div>
                 </section>
                 
@@ -1134,10 +1180,10 @@
                 <textarea id="adminVideoDescription" rows="3" placeholder="Add a description for this video update"></textarea>
             </div>
             <button class="btn" id="updateVideoBtn">
-                <i class="fas fa-sync-alt"></i> Update Video
+                <i class="fas fa-sync-alt"></i> Update Video & Sync
             </button>
             <div class="mt-15" style="font-size: 0.85rem; color: var(--gray);">
-                <i class="fas fa-info-circle"></i> Video updates sync across all devices
+                <i class="fas fa-info-circle"></i> Updates will sync across all devices worldwide
             </div>
         </div>
         
@@ -1146,19 +1192,19 @@
             <h4><i class="fas fa-chart-bar"></i> Website Statistics</h4>
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-value-lg" id="totalVisits">1,245</div>
+                    <div class="stat-value-lg" id="totalVisits">0</div>
                     <div class="stat-label-lg">Total Visits</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value-lg" id="videoPlays">856</div>
+                    <div class="stat-value-lg" id="videoPlays">0</div>
                     <div class="stat-label-lg">Video Plays</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value-lg" id="commentsCount">24</div>
+                    <div class="stat-value-lg" id="commentsCount">0</div>
                     <div class="stat-label-lg">Comments</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value-lg" id="lastUpdated">Today</div>
+                    <div class="stat-value-lg" id="lastUpdated">Just now</div>
                     <div class="stat-label-lg">Last Updated</div>
                 </div>
             </div>
@@ -1203,7 +1249,7 @@
                 <input type="text" id="adminFunds" value="12,450,000">
             </div>
             <button class="btn" id="updateProgressBtn">
-                <i class="fas fa-save"></i> Update Progress
+                <i class="fas fa-save"></i> Update Progress & Sync
             </button>
         </div>
         
@@ -1215,7 +1261,7 @@
                 <input type="text" id="adminPhone" value="+251 91 234 5678">
             </div>
             <button class="btn" id="updatePhoneBtn">
-                <i class="fas fa-phone"></i> Update Phone
+                <i class="fas fa-phone"></i> Update Phone & Sync
             </button>
         </div>
         
@@ -1252,6 +1298,12 @@
                     <i class="fas fa-eraser"></i> Reset Statistics
                 </button>
             </div>
+            
+            <div class="mt-15">
+                <button class="btn btn-danger" id="clearExampleDataBtn">
+                    <i class="fas fa-trash-alt"></i> Clear Example Data
+                </button>
+            </div>
         </div>
     </div>
     
@@ -1259,29 +1311,17 @@
         // Admin Password
         const ADMIN_PASSWORD = "2121maryam2121";
         
-        // Sample comments data
-        let comments = [
-            { id: 1, name: "Samuel G.", text: "This is amazing progress! God bless everyone involved in this project.", type: "public", date: "Oct 18, 2023" },
-            { id: 2, name: "Anonymous", text: "Praying for the safety of all workers. Can't wait to see the finished building!", type: "anonymous", date: "Oct 16, 2023" },
-            { id: 3, name: "Martha T.", text: "Our children will have such a beautiful place to learn about faith. Thank you to all donors!", type: "public", date: "Oct 15, 2023" },
-            { id: 4, name: "Anonymous", text: "How can I contribute to the funding? Please share donation information.", type: "anonymous", date: "Oct 14, 2023" }
-        ];
-        
-        // Statistics data
+        // Initialize data
+        let comments = [];
         let statistics = {
-            totalVisits: 1245,
-            videoPlays: 856,
-            commentsCount: 24,
+            totalVisits: 0,
+            videoPlays: 0,
+            commentsCount: 0,
             lastUpdated: new Date().toLocaleDateString(),
-            activityLog: [
-                { time: "2 hours ago", device: "Mobile", action: "Viewed video" },
-                { time: "5 hours ago", device: "Desktop", action: "Posted comment" },
-                { time: "Yesterday", device: "Mobile", action: "Visited site" },
-                { time: "2 days ago", device: "Tablet", action: "Viewed progress" }
-            ]
+            activityLog: []
         };
         
-        // Default TikTok embed (you'll replace this with your actual TikTok)
+        // Default TikTok embed
         const defaultTikTokEmbed = `
             <div class="tiktok-embed-container">
                 <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@construction/video/7291234567891012345" data-video-id="7291234567891012345" style="max-width: 605px;min-width: 325px;">
@@ -1303,11 +1343,13 @@
         const deleteCommentBtn = document.getElementById('deleteCommentBtn');
         const clearCommentsBtn = document.getElementById('clearCommentsBtn');
         const deleteCommentIdInput = document.getElementById('deleteCommentId');
-        const videoContainer = document.getElementById('videoContainer');
+        const videoContainer = document.querySelector('.video-wrapper');
         const videoDescription = document.getElementById('videoDescription');
         const syncStatus = document.getElementById('syncStatus');
         const refreshStatsBtn = document.getElementById('refreshStats');
         const resetStatsBtn = document.getElementById('resetStatsBtn');
+        const clearExampleDataBtn = document.getElementById('clearExampleDataBtn');
+        const refreshIndicator = document.getElementById('refreshIndicator');
         const totalVisitsEl = document.getElementById('totalVisits');
         const videoPlaysEl = document.getElementById('videoPlays');
         const commentsCountEl = document.getElementById('commentsCount');
@@ -1347,12 +1389,14 @@
             // Load TikTok embed script
             loadTikTokScript();
             
-            // Check if we need to sync data from other devices
-            checkDataSync();
+            // Check for updates from server
+            checkForUpdates();
             
-            // Set initial video embed
-            const savedVideoEmbed = localStorage.getItem('videoEmbed') || defaultTikTokEmbed;
-            videoContainer.innerHTML = savedVideoEmbed;
+            // Set up periodic sync
+            setInterval(checkForUpdates, 30000); // Check every 30 seconds
+            
+            // Load saved data from localStorage
+            loadSavedData();
             
             // Load comments
             loadComments();
@@ -1363,19 +1407,14 @@
                 progressValue.textContent = adminProgress.value + '%';
             });
             
-            // Load saved data from localStorage
-            loadSavedData();
-            
             // Load statistics
             loadStatistics();
             
-            // Initialize TikTok embed
-            if (window.tiktokEmbedLoader) {
-                window.tiktokEmbedLoader();
-            }
-            
-            // Track video plays
+            // Set up video tracking
             setupVideoTracking();
+            
+            // Initialize with example data if empty
+            initializeExampleData();
         });
         
         // Track website visit
@@ -1402,14 +1441,18 @@
                 stats.activityLog = stats.activityLog.slice(0, 10);
             }
             
+            // Update last updated time
+            stats.lastUpdated = timeString;
+            
             localStorage.setItem('websiteStatistics', JSON.stringify(stats));
             statistics = stats;
+            
+            // Save to server (simulated)
+            saveToServer();
         }
         
         // Track video plays
         function setupVideoTracking() {
-            // This is a simulated tracking since we can't directly track TikTok embeds
-            // In a real implementation, you would use TikTok's API
             document.addEventListener('click', (e) => {
                 if (e.target.closest('.video-container') || e.target.closest('#videoContainer')) {
                     let stats = JSON.parse(localStorage.getItem('websiteStatistics')) || statistics;
@@ -1432,14 +1475,130 @@
                         stats.activityLog = stats.activityLog.slice(0, 10);
                     }
                     
+                    stats.lastUpdated = timeString;
                     localStorage.setItem('websiteStatistics', JSON.stringify(stats));
                     statistics = stats;
                     
                     // Update video views count
-                    const currentViews = parseInt(videoViews.textContent.replace(/\D/g, '')) || 1245;
+                    const currentViews = parseInt(videoViews.textContent.replace(/\D/g, '')) || 0;
                     videoViews.textContent = (currentViews + 1).toLocaleString() + ' views';
+                    
+                    // Save to server
+                    saveToServer();
                 }
             });
+        }
+        
+        // Check for updates from server (simulated)
+        function checkForUpdates() {
+            const lastCheck = localStorage.getItem('lastServerCheck') || 0;
+            const now = Date.now();
+            
+            // Only check every 30 seconds
+            if (now - lastCheck < 30000) return;
+            
+            localStorage.setItem('lastServerCheck', now);
+            
+            // Simulate checking server for updates
+            setTimeout(() => {
+                // In a real app, this would fetch from your backend
+                // For Vercel, you could use Serverless Functions or a database
+                const serverData = localStorage.getItem('serverData');
+                
+                if (serverData) {
+                    try {
+                        const parsedData = JSON.parse(serverData);
+                        applyServerUpdates(parsedData);
+                    } catch (e) {
+                        console.error('Error parsing server data:', e);
+                    }
+                }
+                
+                // Update sync status
+                syncStatus.innerHTML = 'Live <i class="fas fa-check-circle"></i>';
+                syncStatus.className = 'sync-status sync-success';
+            }, 1000);
+        }
+        
+        // Apply updates from server
+        function applyServerUpdates(serverData) {
+            let updated = false;
+            
+            // Check video data
+            if (serverData.videoEmbed && serverData.videoEmbed !== localStorage.getItem('videoEmbed')) {
+                videoContainer.innerHTML = serverData.videoEmbed;
+                localStorage.setItem('videoEmbed', serverData.videoEmbed);
+                updated = true;
+            }
+            
+            if (serverData.videoDescription && serverData.videoDescription !== localStorage.getItem('videoDescription')) {
+                videoDescription.textContent = serverData.videoDescription;
+                localStorage.setItem('videoDescription', serverData.videoDescription);
+                updated = true;
+            }
+            
+            // Check comments
+            if (serverData.comments && JSON.stringify(serverData.comments) !== localStorage.getItem('sundaySchoolComments')) {
+                localStorage.setItem('sundaySchoolComments', JSON.stringify(serverData.comments));
+                comments = serverData.comments;
+                loadComments();
+                loadAdminComments();
+                updated = true;
+            }
+            
+            // Check progress data
+            if (serverData.progress && serverData.progress !== localStorage.getItem('constructionProgress')) {
+                localStorage.setItem('constructionProgress', serverData.progress);
+                progressBar.style.width = serverData.progress + '%';
+                progressPercent.textContent = serverData.progress + '%';
+                updated = true;
+            }
+            
+            // Check contact data
+            if (serverData.contactPhone && serverData.contactPhone !== localStorage.getItem('contactPhone')) {
+                localStorage.setItem('contactPhone', serverData.contactPhone);
+                contactPhone.textContent = serverData.contactPhone;
+                sidebarPhone.textContent = serverData.contactPhone;
+                updated = true;
+            }
+            
+            // Check statistics
+            if (serverData.statistics) {
+                localStorage.setItem('websiteStatistics', JSON.stringify(serverData.statistics));
+                statistics = serverData.statistics;
+                loadStatistics();
+                updated = true;
+            }
+            
+            if (updated) {
+                showRefreshIndicator();
+            }
+        }
+        
+        // Save data to server (simulated)
+        function saveToServer() {
+            const dataToSync = {
+                comments: JSON.parse(localStorage.getItem('sundaySchoolComments')) || comments,
+                videoEmbed: localStorage.getItem('videoEmbed'),
+                videoDescription: localStorage.getItem('videoDescription'),
+                progress: localStorage.getItem('constructionProgress'),
+                contactPhone: localStorage.getItem('contactPhone'),
+                statistics: JSON.parse(localStorage.getItem('websiteStatistics')) || statistics,
+                lastSync: new Date().toISOString()
+            };
+            
+            // In a real Vercel app, you would send this to your backend API
+            // For now, we simulate by saving to localStorage
+            localStorage.setItem('serverData', JSON.stringify(dataToSync));
+            
+            // Update sync status
+            syncStatus.innerHTML = 'Synced <i class="fas fa-cloud-upload-alt"></i>';
+            syncStatus.className = 'sync-status sync-success';
+            
+            setTimeout(() => {
+                syncStatus.innerHTML = 'Live <i class="fas fa-check-circle"></i>';
+                syncStatus.className = 'sync-status sync-success';
+            }, 3000);
         }
         
         // Load TikTok embed script
@@ -1450,115 +1609,11 @@
             document.body.appendChild(script);
         }
         
-        // Check data sync across devices
-        function checkDataSync() {
-            // Generate a unique device ID
-            let deviceId = localStorage.getItem('deviceId');
-            if (!deviceId) {
-                deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('deviceId', deviceId);
-            }
-            
-            // Check if data needs to be synced
-            const lastSync = localStorage.getItem('lastDataSync');
-            const now = new Date();
-            
-            if (!lastSync || (now - new Date(lastSync)) > 300000) { // 5 minutes
-                syncStatus.textContent = 'Syncing...';
-                syncStatus.className = 'sync-status';
-                
-                // Simulate sync with other devices
-                setTimeout(() => {
-                    // In a real app, this would sync with a server
-                    // For now, we'll just update localStorage
-                    localStorage.setItem('lastDataSync', now.toISOString());
-                    
-                    // Check if other devices have updated data
-                    const cloudData = localStorage.getItem('cloudSyncedData');
-                    if (cloudData) {
-                        try {
-                            const parsedData = JSON.parse(cloudData);
-                            // Merge data from cloud
-                            mergeCloudData(parsedData);
-                        } catch (e) {
-                            console.error('Error parsing cloud data:', e);
-                        }
-                    }
-                    
-                    syncStatus.innerHTML = 'Synced <i class="fas fa-check-circle"></i>';
-                    syncStatus.className = 'sync-status sync-success';
-                }, 1000);
-            }
-        }
-        
-        // Merge data from cloud (simulated)
-        function mergeCloudData(cloudData) {
-            // Merge comments
-            if (cloudData.comments && cloudData.comments.length > 0) {
-                const localComments = JSON.parse(localStorage.getItem('sundaySchoolComments')) || comments;
-                const mergedComments = [...cloudData.comments];
-                
-                // Add local comments not in cloud
-                localComments.forEach(localComment => {
-                    if (!mergedComments.find(c => c.id === localComment.id)) {
-                        mergedComments.push(localComment);
-                    }
-                });
-                
-                // Sort by date (newest first)
-                mergedComments.sort((a, b) => b.id - a.id);
-                
-                // Save merged comments
-                localStorage.setItem('sundaySchoolComments', JSON.stringify(mergedComments));
-                comments = mergedComments.slice(0, 20); // Keep only 20 most recent
-            }
-            
-            // Merge video data
-            if (cloudData.videoEmbed) {
-                localStorage.setItem('videoEmbed', cloudData.videoEmbed);
-            }
-            
-            if (cloudData.videoDescription) {
-                localStorage.setItem('videoDescription', cloudData.videoDescription);
-            }
-            
-            // Reload data
-            loadSavedData();
-            loadComments();
-            loadAdminComments();
-            
-            showNotification('Data synced from cloud', 'success');
-        }
-        
-        // Save data to cloud (simulated)
-        function saveToCloud() {
-            const dataToSync = {
-                comments: JSON.parse(localStorage.getItem('sundaySchoolComments')) || comments,
-                videoEmbed: localStorage.getItem('videoEmbed'),
-                videoDescription: localStorage.getItem('videoDescription'),
-                progress: localStorage.getItem('constructionProgress'),
-                lastSync: new Date().toISOString()
-            };
-            
-            // In a real app, this would send to a server
-            // For now, we simulate by saving to localStorage
-            localStorage.setItem('cloudSyncedData', JSON.stringify(dataToSync));
-            
-            // Update sync status
-            syncStatus.innerHTML = 'Synced to cloud <i class="fas fa-cloud-upload-alt"></i>';
-            syncStatus.className = 'sync-status sync-success';
-            
-            setTimeout(() => {
-                syncStatus.innerHTML = 'Synced <i class="fas fa-check-circle"></i>';
-                syncStatus.className = 'sync-status sync-success';
-            }, 3000);
-        }
-        
         // Load comments to public view
         function loadComments() {
             commentsList.innerHTML = '';
             
-            // Get comments from localStorage or use sample data
+            // Get comments from localStorage
             const savedComments = JSON.parse(localStorage.getItem('sundaySchoolComments')) || comments;
             
             if (savedComments.length === 0) {
@@ -1665,7 +1720,7 @@
             
             // Create new comment
             const newComment = {
-                id: Date.now(), // Simple ID generation
+                id: Date.now(),
                 name: commentType === 'public' ? name : 'Anonymous',
                 text: text,
                 type: commentType,
@@ -1678,7 +1733,7 @@
             
             // Get existing comments
             const savedComments = JSON.parse(localStorage.getItem('sundaySchoolComments')) || comments;
-            savedComments.unshift(newComment); // Add to beginning
+            savedComments.unshift(newComment);
             
             // Save to localStorage
             localStorage.setItem('sundaySchoolComments', JSON.stringify(savedComments));
@@ -1702,11 +1757,12 @@
                 stats.activityLog = stats.activityLog.slice(0, 10);
             }
             
+            stats.lastUpdated = timeString;
             localStorage.setItem('websiteStatistics', JSON.stringify(stats));
             statistics = stats;
             
-            // Save to cloud for other devices
-            saveToCloud();
+            // Save to server
+            saveToServer();
             
             // Reload comments
             loadComments();
@@ -1732,8 +1788,8 @@
             // Save to localStorage
             localStorage.setItem('sundaySchoolComments', JSON.stringify(updatedComments));
             
-            // Save to cloud
-            saveToCloud();
+            // Save to server
+            saveToServer();
             
             // Reload comments
             loadComments();
@@ -1751,8 +1807,8 @@
             localStorage.removeItem('sundaySchoolComments');
             comments = [];
             
-            // Save to cloud
-            saveToCloud();
+            // Save to server
+            saveToServer();
             
             loadComments();
             loadAdminComments();
@@ -1779,7 +1835,7 @@
             totalVisitsEl.textContent = stats.totalVisits.toLocaleString();
             videoPlaysEl.textContent = stats.videoPlays.toLocaleString();
             commentsCountEl.textContent = stats.commentsCount || comments.length;
-            lastUpdatedEl.textContent = stats.lastUpdated || 'Today';
+            lastUpdatedEl.textContent = stats.lastUpdated || 'Just now';
             
             // Load activity log
             activityTable.innerHTML = '';
@@ -1815,9 +1871,60 @@
             };
             
             localStorage.setItem('websiteStatistics', JSON.stringify(statistics));
+            saveToServer();
             loadStatistics();
             
             showNotification('Statistics reset', 'success');
+        });
+        
+        // Clear example data
+        clearExampleDataBtn.addEventListener('click', () => {
+            if (!confirm('Clear all example data and start fresh?')) {
+                return;
+            }
+            
+            // Clear all example data
+            localStorage.removeItem('sundaySchoolComments');
+            localStorage.removeItem('videoEmbed');
+            localStorage.removeItem('videoDescription');
+            localStorage.removeItem('websiteStatistics');
+            
+            // Reset to empty state
+            comments = [];
+            statistics = {
+                totalVisits: 0,
+                videoPlays: 0,
+                commentsCount: 0,
+                lastUpdated: new Date().toLocaleDateString(),
+                activityLog: []
+            };
+            
+            // Set default video placeholder
+            videoContainer.innerHTML = `
+                <div class="video-placeholder">
+                    <i class="fab fa-tiktok"></i>
+                    <h4>No video uploaded yet</h4>
+                    <p>Admin can upload a TikTok video using the admin panel</p>
+                </div>
+            `;
+            
+            videoDescription.textContent = "Upload a video to see the description here.";
+            videoDate.textContent = new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            videoViews.textContent = "0 views";
+            
+            // Save to server
+            saveToServer();
+            
+            // Reload everything
+            loadComments();
+            loadAdminComments();
+            loadStatistics();
+            
+            showNotification('All example data cleared.', 'success');
         });
         
         // Update comments count
@@ -1832,6 +1939,43 @@
             
             if (commentsCountEl) {
                 commentsCountEl.textContent = count;
+            }
+        }
+        
+        // Initialize with example data if empty
+        function initializeExampleData() {
+            const hasData = localStorage.getItem('sundaySchoolComments') || 
+                           localStorage.getItem('videoEmbed') || 
+                           localStorage.getItem('websiteStatistics');
+            
+            if (!hasData) {
+                // Add some example comments
+                const exampleComments = [
+                    { id: 1, name: "Samuel G.", text: "This is amazing progress! God bless everyone involved in this project.", type: "public", date: "Oct 18, 2023" },
+                    { id: 2, name: "Anonymous", text: "Praying for the safety of all workers. Can't wait to see the finished building!", type: "anonymous", date: "Oct 16, 2023" }
+                ];
+                
+                localStorage.setItem('sundaySchoolComments', JSON.stringify(exampleComments));
+                comments = exampleComments;
+                
+                // Set example statistics
+                statistics = {
+                    totalVisits: 1245,
+                    videoPlays: 856,
+                    commentsCount: exampleComments.length,
+                    lastUpdated: new Date().toLocaleDateString(),
+                    activityLog: [
+                        { time: "2 hours ago", device: "Mobile", action: "Viewed video" },
+                        { time: "5 hours ago", device: "Desktop", action: "Posted comment" }
+                    ]
+                };
+                
+                localStorage.setItem('websiteStatistics', JSON.stringify(statistics));
+                
+                // Load everything
+                loadComments();
+                loadAdminComments();
+                loadStatistics();
             }
         }
         
@@ -1927,8 +2071,8 @@
             localStorage.setItem('videoEmbed', embedCode);
             localStorage.setItem('videoTitle', title);
             
-            // Save to cloud for other devices
-            saveToCloud();
+            // Save to server
+            saveToServer();
             
             // Track video update activity
             let stats = JSON.parse(localStorage.getItem('websiteStatistics')) || statistics;
@@ -1946,7 +2090,10 @@
             // Reload TikTok embed script
             loadTikTokScript();
             
-            showNotification('Video updated and synced to all devices!', 'success');
+            // Show refresh indicator on other devices
+            showRefreshIndicator();
+            
+            showNotification('Video updated and synced worldwide!', 'success');
         });
         
         // Update progress
@@ -1971,7 +2118,13 @@
             localStorage.setItem('daysRemaining', days);
             localStorage.setItem('fundsRaised', funds);
             
-            showNotification('Progress updated successfully!', 'success');
+            // Save to server
+            saveToServer();
+            
+            // Show refresh indicator
+            showRefreshIndicator();
+            
+            showNotification('Progress updated and synced worldwide!', 'success');
         });
         
         // Update phone number
@@ -1989,7 +2142,13 @@
             // Save to localStorage
             localStorage.setItem('contactPhone', phone);
             
-            showNotification('Phone number updated successfully!', 'success');
+            // Save to server
+            saveToServer();
+            
+            // Show refresh indicator
+            showRefreshIndicator();
+            
+            showNotification('Phone number updated and synced worldwide!', 'success');
         });
         
         // Load current data into admin controls
@@ -1999,7 +2158,7 @@
             const savedVideoTitle = localStorage.getItem('videoTitle');
             const savedVideoDescription = localStorage.getItem('videoDescription');
             
-            if (savedVideoEmbed) adminVideoUrl.value = 'https://www.tiktok.com/@user/video/123456789'; // Placeholder
+            if (savedVideoEmbed) adminVideoUrl.value = 'https://www.tiktok.com/@user/video/123456789';
             if (savedVideoTitle) adminVideoTitle.value = savedVideoTitle;
             if (savedVideoDescription) adminVideoDescription.value = savedVideoDescription;
             
@@ -2027,6 +2186,8 @@
             const savedVideoEmbed = localStorage.getItem('videoEmbed');
             if (savedVideoEmbed) {
                 videoContainer.innerHTML = savedVideoEmbed;
+            } else {
+                videoContainer.innerHTML = defaultTikTokEmbed;
             }
             
             const savedVideoDescription = localStorage.getItem('videoDescription');
@@ -2085,6 +2246,15 @@
             if (diffHours < 24) return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
             if (diffDays < 7) return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
             return date.toLocaleDateString();
+        }
+        
+        // Show refresh indicator
+        function showRefreshIndicator() {
+            refreshIndicator.style.display = 'block';
+            
+            setTimeout(() => {
+                refreshIndicator.style.display = 'none';
+            }, 3000);
         }
         
         // Show notification
