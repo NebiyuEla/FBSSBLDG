@@ -16,6 +16,157 @@
             --warning: #f59e0b;
             --danger: #ef4444;
             --light: #f8fafc;/* Video Player */
+/* Video Thumbnail */
+.video-thumbnail {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #000, #222);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.video-thumbnail:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.video-thumbnail:hover .play-overlay {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.thumbnail-content {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.thumbnail-content i.fa-tiktok {
+    font-size: 4rem;
+    color: #00f2ea;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.thumbnail-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.thumbnail-content p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.play-overlay i {
+    font-size: 5rem;
+    color: #00f2ea;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Auto-play notification */
+.auto-play-notice {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 3;
+}
+
+/* Video info styles */
+.video-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    color: var(--gray);
+    font-size: 0.9rem;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.video-info a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.video-info a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .video-container {
+        height: 350px;
+    }
+    
+    .thumbnail-content i.fa-tiktok {
+        font-size: 3rem;
+    }
+    
+    .thumbnail-content h3 {
+        font-size: 1.4rem;
+    }
+    
+    .play-overlay i {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-container {
+        height: 250px;
+    }
+    
+    .thumbnail-content i.fa-tiktok {
+        font-size: 2.5rem;
+    }
+    
+    .thumbnail-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .thumbnail-content p {
+        font-size: 0.9rem;
+    }
+    
+    .play-overlay i {
+        font-size: 3rem;
+    }
+}
 .video-player {
     width: 100%;
     height: 100%;
@@ -1592,99 +1743,102 @@
         
         // Update video display with AUTO-PLAY
 // Update video display with REAL autoplay
+// Simple video functions
 function updateVideoDisplay() {
     if (!state.videoUrl) return;
     
-    const videoPlayer = document.getElementById('videoPlayer');
-    const placeholder = document.getElementById('videoPlaceholder');
-    
-    // Extract video ID from TikTok URL
-    const videoIdMatch = state.videoUrl.match(/\/video\/(\d+)/);
-    if (!videoIdMatch) return;
-    
-    const videoId = videoIdMatch[1];
-    
-    // Create a better video display approach
-    // Since TikTok doesn't allow autoplay, we'll create a different experience
-    
-    // Create video element for autoplay
-    let videoElement = document.getElementById('realVideo');
-    
-    if (!videoElement) {
-        videoElement = document.createElement('video');
-        videoElement.id = 'realVideo';
-        videoElement.className = 'video-real';
-        videoElement.controls = true;
-        videoElement.autoplay = true;
-        videoElement.muted = false; // Try unmuted autoplay
-        videoElement.playsInline = true; // For iOS
-        videoElement.preload = "auto";
-        
-        // Add event listeners
-        videoElement.addEventListener('loadeddata', function() {
-            console.log('Video loaded, attempting autoplay');
-            videoElement.play().catch(e => {
-                console.log('Autoplay failed:', e);
-                // Show placeholder if autoplay fails
-                placeholder.style.display = 'flex';
-            });
-        });
-        
-        videoElement.addEventListener('play', function() {
-            console.log('Video playing');
-            placeholder.style.display = 'none';
-        });
-        
-        videoElement.addEventListener('error', function() {
-            console.log('Video error, showing TikTok link');
-            showTikTokLink(videoId);
-        });
-        
-        videoPlayer.appendChild(videoElement);
-    }
-    
-    // Try to fetch video from TikTok API (using a proxy approach)
-    fetchTikTokVideo(videoId).then(videoUrl => {
-        if (videoUrl) {
-            videoElement.src = videoUrl;
-            videoElement.load();
-            
-            // Create controls
-            createVideoControls();
-            
-            // Try to play automatically
-            setTimeout(() => {
-                videoElement.play().then(() => {
-                    console.log('Autoplay successful');
-                    placeholder.style.display = 'none';
-                }).catch(e => {
-                    console.log('Autoplay blocked, showing placeholder');
-                    // Show play button on placeholder
-                    placeholder.innerHTML = `
-                        <div class="play-btn-large" onclick="playVideo()">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <h3>Latest Construction Update</h3>
-                        <p>Click to play video</p>
-                    `;
-                    placeholder.style.display = 'flex';
-                });
-            }, 1000);
-        } else {
-            // Fallback to TikTok embed
-            showTikTokLink(videoId);
-        }
-    }).catch(error => {
-        console.log('Failed to fetch video, using TikTok link');
-        showTikTokLink(videoId);
-    });
+    // Update video description
+    elements.videoDescText.textContent = state.videoDesc;
     
     // Update TikTok link
     const originalLink = document.getElementById('originalVideoLink');
     if (originalLink) {
         originalLink.href = state.videoUrl;
     }
+    
+    // Update video date
+    const today = new Date();
+    const videoDateElement = document.getElementById('videoDate');
+    if (videoDateElement) {
+        videoDateElement.textContent = today.toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        });
+    }
+    
+    // Extract video ID for thumbnail
+    const videoIdMatch = state.videoUrl.match(/\/video\/(\d+)/);
+    if (videoIdMatch) {
+        const videoId = videoIdMatch[1];
+        // We could fetch thumbnail here if needed, but for simplicity just use the link
+    }
 }
+
+// Open TikTok video in new tab
+function openTikTokVideo() {
+    if (!state.videoUrl) return;
+    
+    // Open TikTok video in new tab
+    window.open(state.videoUrl, '_blank');
+    
+    // Track video play
+    state.videoViews = (state.videoViews || 0) + 1;
+    elements.videoViews.textContent = state.videoViews.toLocaleString();
+    
+    // Save to server
+    saveToServer();
+}
+
+// Auto-play video after a delay (if user doesn't click)
+function setupAutoPlay() {
+    // Auto-play after 3 seconds
+    setTimeout(() => {
+        if (!state.videoUrl) return;
+        
+        // Create auto-play notice
+        const thumbnail = document.getElementById('videoThumbnail');
+        if (thumbnail) {
+            const notice = document.createElement('div');
+            notice.className = 'auto-play-notice';
+            notice.innerHTML = '<i class="fas fa-clock"></i> Opening in 3...';
+            thumbnail.appendChild(notice);
+            
+            // Countdown
+            let count = 3;
+            const countdown = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    notice.innerHTML = `<i class="fas fa-clock"></i> Opening in ${count}...`;
+                } else {
+                    clearInterval(countdown);
+                    notice.innerHTML = '<i class="fas fa-play"></i> Opening video...';
+                    // Open video
+                    openTikTokVideo();
+                    // Remove notice after 1 second
+                    setTimeout(() => {
+                        if (notice.parentNode) {
+                            notice.parentNode.removeChild(notice);
+                        }
+                    }, 1000);
+                }
+            }, 1000);
+        }
+    }, 3000);
+}
+
+// Call this in your render function
+function render() {
+    // ... existing code ...
+    updateVideoDisplay();
+    // ... existing code ...
+}
+
+// Call setupAutoPlay when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    // ... existing initialization code ...
+    setupAutoPlay();
+});
 
 // Create video controls
 function createVideoControls() {
@@ -2282,6 +2436,7 @@ document.head.appendChild(style);
     </script>
 </body>
 </html>
+
 
 
 
