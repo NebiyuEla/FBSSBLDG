@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunday School Construction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-dark: #1B5E20;
+            --secondary: #D32F2F;
+            --light: #f8fafc;
+            --dark: #1a1a2e;
+            --text: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f5f7fa;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .progress-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), #4CAF50);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .video-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .video-wrapper {
+            background: #000;
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 15px 0;
+        }
+        
+        .comments-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .comment-form {
+            margin-bottom: 20px;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: var(--primary-dark);
+        }
+        
+        .comment {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .admin-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--dark);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .sync-status {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .video-wrapper {
+                height: 300px;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-church"></i>
+            <div>
+                <h1>Sunday School Construction</h1>
+                <p>Building Our Future Together</p>
+            </div>
+        </div>
+        <p>Follow real-time progress updates from anywhere in the world</p>
+    </header>
+    
+    <section class="progress-section">
+        <h2><i class="fas fa-hard-hat"></i> Construction Progress</h2>
+        <div class="progress-bar">
+            <div class="progress" id="progressBar" style="width: 65%"></div>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="progressPercent">65%</div>
+                <div>Completed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="daysLeft">45</div>
+                <div>Days Remaining</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="fundsRaised">ETB 12.4M</div>
+                <div>Funds Raised</div>
+            </div>
+        </div>
+        <div style="text-align: right; margin-top: 10px;">
+            <span id="syncStatus" class="sync-status">Live</span>
+        </div>
+    </section>
+    
+    <section class="video-container">
+        <h2><i class="fas fa-video"></i> Latest Update</h2>
+        <div class="video-wrapper" id="videoWrapper">
+            <div style="text-align: center;">
+                <i class="fab fa-tiktok" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                <p>Loading video...</p>
+            </div>
+        </div>
+        <div id="videoDescription">Weekly construction progress update</div>
+        <div style="margin-top: 10px; color: #666;">
+            <i class="far fa-calendar"></i> <span id="videoDate">Today</span>
+        </div>
+    </section>
+    
+    <section class="comments-section">
+        <h2><i class="fas fa-comments"></i> Community Comments</h2>
+        <div class="comment-form">
+            <input type="text" id="commentName" placeholder="Your name (optional)">
+            <textarea id="commentText" rows="3" placeholder="Share your thoughts..."></textarea>
+            <select id="commentType">
+                <option value="public">Public Comment</option>
+                <option value="anonymous">Anonymous</option>
+            </select>
+            <button id="submitComment">
+                <i class="fas fa-paper-plane"></i> Post Comment
+            </button>
+        </div>
+        <div id="commentsList">
+            <!-- Comments will appear here -->
+        </div>
+    </section>
+    
+    <div class="admin-btn" id="adminBtn">
+        <i class="fas fa-cog"></i>
+    </div>
+    
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h3><i class="fas fa-lock"></i> Admin Login</h3>
+            <input type="password" id="adminPassword" placeholder="Enter password">
+            <button id="loginBtn">Login</button>
+        </div>
+    </div>
+    
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <h3><i class="fas fa-cogs"></i> Admin Controls</h3>
+            
+            <div style="margin: 20px 0;">
+                <label>Progress (%)</label>
+                <input type="range" id="adminProgress" min="0" max="100" value="65">
+                <div style="text-align: center;">
+                    <span id="progressValue">65%</span>
+                </div>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <label>Days Remaining</label>
+                <input type="number" id="adminDays" value="45">
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <label>TikTok Video URL</label>
+                <input type="text" id="adminVideoUrl" placeholder="Paste TikTok URL here">
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <label>Video Description</label>
+                <textarea id="adminVideoDesc" rows="3"></textarea>
+            </div>
+            
+            <button id="saveChanges">
+                <i class="fas fa-sync-alt"></i> Save & Sync Worldwide
+            </button>
+            
+            <button style="background: #666; margin-top: 10px;" id="closeAdmin">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            ADMIN_PASSWORD: "admin123", // Change this to your secure password
+            SYNC_INTERVAL: 10000, // Sync every 10 seconds
+            API_URL: "/api/sync" // Vercel serverless function endpoint
+        };
+        
+        // Global state
+        let state = {
+            progress: 65,
+            daysLeft: 45,
+            funds: "ETB 12.4M",
+            videoUrl: "https://www.tiktok.com/@logawwwww/video/7595218252356128020",
+            videoDesc: "Weekly construction progress update",
+            comments: [],
+            lastSync: null
+        };
+        
+        // DOM Elements
+        const elements = {
+            progressBar: document.getElementById('progressBar'),
+            progressPercent: document.getElementById('progressPercent'),
+            daysLeft: document.getElementById('daysLeft'),
+            fundsRaised: document.getElementById('fundsRaised'),
+            videoWrapper: document.getElementById('videoWrapper'),
+            videoDescription: document.getElementById('videoDescription'),
+            videoDate: document.getElementById('videoDate'),
+            commentsList: document.getElementById('commentsList'),
+            submitComment: document.getElementById('submitComment'),
+            adminBtn: document.getElementById('adminBtn'),
+            loginModal: document.getElementById('loginModal'),
+            adminModal: document.getElementById('adminModal'),
+            adminPassword: document.getElementById('adminPassword'),
+            loginBtn: document.getElementById('loginBtn'),
+            adminProgress: document.getElementById('adminProgress'),
+            adminDays: document.getElementById('adminDays'),
+            adminVideoUrl: document.getElementById('adminVideoUrl'),
+            adminVideoDesc: document.getElementById('adminVideoDesc'),
+            saveChanges: document.getElementById('saveChanges'),
+            closeAdmin: document.getElementById('closeAdmin'),
+            progressValue: document.getElementById('progressValue'),
+            syncStatus: document.getElementById('syncStatus')
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            render();
+            setupEventListeners();
+            startSync();
+        });
+        
+        // Load state from localStorage or server
+        async function loadState() {
+            // Try to load from localStorage first
+            const saved = localStorage.getItem('sundaySchoolState');
+            if (saved) {
+                state = { ...state, ...JSON.parse(saved) };
+            }
+            
+            // Then try to sync with server
+            await syncFromServer();
+        }
+        
+        // Save state to localStorage
+        function saveState() {
+            localStorage.setItem('sundaySchoolState', JSON.stringify(state));
+        }
+        
+        // Render UI with current state
+        function render() {
+            // Update progress
+            elements.progressBar.style.width = `${state.progress}%`;
+            elements.progressPercent.textContent = `${state.progress}%`;
+            elements.progressValue.textContent = `${state.progress}%`;
+            elements.adminProgress.value = state.progress;
+            
+            // Update days
+            elements.daysLeft.textContent = state.daysLeft;
+            elements.adminDays.value = state.daysLeft;
+            
+            // Update funds
+            elements.fundsRaised.textContent = state.funds;
+            
+            // Update video
+            if (state.videoUrl) {
+                loadTikTokVideo(state.videoUrl);
+            }
+            
+            if (state.videoDesc) {
+                elements.videoDescription.textContent = state.videoDesc;
+                elements.adminVideoDesc.value = state.videoDesc;
+            }
+            
+            // Update date
+            elements.videoDate.textContent = new Date().toLocaleDateString();
+            
+            // Render comments
+            renderComments();
+            
+            // Update sync status
+            if (state.lastSync) {
+                const timeAgo = Math.floor((Date.now() - state.lastSync) / 1000);
+                if (timeAgo < 30) {
+                    elements.syncStatus.textContent = 'Live';
+                    elements.syncStatus.style.background = '#4CAF50';
+                } else {
+                    elements.syncStatus.textContent = `${timeAgo}s ago`;
+                    elements.syncStatus.style.background = '#ff9800';
+                }
+            }
+        }
+        
+        // Load TikTok video
+        function loadTikTokVideo(url) {
+            elements.videoWrapper.innerHTML = `
+                <div style="width: 100%; height: 100%; padding: 20px; text-align: center;">
+                    <i class="fab fa-tiktok" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <p>Video: ${state.videoDesc}</p>
+                    <p><small>${url}</small></p>
+                    <p><small><i class="fas fa-external-link-alt"></i> Click to watch on TikTok</small></p>
+                </div>
+            `;
+            
+            // Make it clickable
+            elements.videoWrapper.style.cursor = 'pointer';
+            elements.videoWrapper.onclick = () => window.open(url, '_blank');
+        }
+        
+        // Render comments
+        function renderComments() {
+            elements.commentsList.innerHTML = '';
+            
+            if (state.comments.length === 0) {
+                elements.commentsList.innerHTML = '<p style="text-align: center; color: #666;">No comments yet. Be the first!</p>';
+                return;
+            }
+            
+            state.comments.forEach(comment => {
+                const commentEl = document.createElement('div');
+                commentEl.className = 'comment';
+                commentEl.innerHTML = `
+                    <div style="font-weight: bold; margin-bottom: 5px;">
+                        ${comment.name} 
+                        <small style="color: #666; font-weight: normal;">• ${comment.date}</small>
+                    </div>
+                    <div>${comment.text}</div>
+                `;
+                elements.commentsList.appendChild(commentEl);
+            });
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Admin button
+            elements.adminBtn.addEventListener('click', () => {
+                elements.loginModal.style.display = 'flex';
+            });
+            
+            // Login
+            elements.loginBtn.addEventListener('click', () => {
+                if (elements.adminPassword.value === CONFIG.ADMIN_PASSWORD) {
+                    elements.loginModal.style.display = 'none';
+                    elements.adminModal.style.display = 'flex';
+                    elements.adminPassword.value = '';
+                    
+                    // Load current values into admin form
+                    elements.adminProgress.value = state.progress;
+                    elements.adminDays.value = state.daysLeft;
+                    elements.adminVideoUrl.value = state.videoUrl;
+                    elements.adminVideoDesc.value = state.videoDesc;
+                } else {
+                    alert('Wrong password!');
+                }
+            });
+            
+            // Save changes
+            elements.saveChanges.addEventListener('click', async () => {
+                // Update state
+                state.progress = parseInt(elements.adminProgress.value);
+                state.daysLeft = parseInt(elements.adminDays.value);
+                state.videoUrl = elements.adminVideoUrl.value;
+                state.videoDesc = elements.adminVideoDesc.value;
+                
+                // Save locally
+                saveState();
+                
+                // Save to server
+                await saveToServer();
+                
+                // Update UI
+                render();
+                
+                // Show success
+                alert('Changes saved and synced worldwide!');
+            });
+            
+            // Close admin
+            elements.closeAdmin.addEventListener('click', () => {
+                elements.adminModal.style.display = 'none';
+            });
+            
+            // Submit comment
+            elements.submitComment.addEventListener('click', () => {
+                const name = document.getElementById('commentName').value || 'Anonymous';
+                const text = document.getElementById('commentText').value;
+                const type = document.getElementById('commentType').value;
+                
+                if (!text.trim()) {
+                    alert('Please enter a comment');
+                    return;
+                }
+                
+                const newComment = {
+                    id: Date.now(),
+                    name: type === 'anonymous' ? 'Anonymous' : name,
+                    text: text,
+                    date: new Date().toLocaleDateString(),
+                    type: type
+                };
+                
+                // Add to state
+                state.comments.unshift(newComment);
+                
+                // Save and sync
+                saveState();
+                saveToServer();
+                
+                // Update UI
+                render();
+                
+                // Clear form
+                document.getElementById('commentName').value = '';
+                document.getElementById('commentText').value = '';
+                
+                alert('Thank you for your comment!');
+            });
+            
+            // Close modals when clicking outside
+            [elements.loginModal, elements.adminModal].forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Progress slider update
+            elements.adminProgress.addEventListener('input', () => {
+                elements.progressValue.textContent = `${elements.adminProgress.value}%`;
+            });
+        }
+        
+        // Server sync functions
+        async function saveToServer() {
+            try {
+                state.lastSync = Date.now();
+                const response = await fetch(CONFIG.API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'save',
+                        data: state,
+                        timestamp: Date.now()
+                    })
+                });
+                
+                const result = await response.json();
+                console.log('Saved to server:', result);
+                return result.success;
+            } catch (error) {
+                console.error('Failed to save to server:', error);
+                return false;
+            }
+        }
+        
+        async function syncFromServer() {
+            try {
+                const response = await fetch(`${CONFIG.API_URL}?t=${Date.now()}`);
+                const serverState = await response.json();
+                
+                if (serverState && serverState.timestamp > (state.lastSync || 0)) {
+                    // Server has newer data, update local state
+                    state = { ...state, ...serverState.data };
+                    saveState();
+                    render();
+                    console.log('Synced from server');
+                    return true;
+                }
+            } catch (error) {
+                console.error('Failed to sync from server:', error);
+            }
+            return false;
+        }
+        
+        // Periodic sync
+        function startSync() {
+            setInterval(async () => {
+                await syncFromServer();
+            }, CONFIG.SYNC_INTERVAL);
+        }
+        
+        // Initial example comments
+        if (!state.comments || state.comments.length === 0) {
+            state.comments = [
+                {
+                    id: 1,
+                    name: "Samuel",
+                    text: "Great progress! God bless the workers.",
+                    date: new Date().toLocaleDateString(),
+                    type: "public"
+                },
+                {
+                    id: 2,
+                    name: "Anonymous",
+                    text: "Praying for the project's success.",
+                    date: new Date().toLocaleDateString(),
+                    type: "anonymous"
+                }
+            ];
+            saveState();
+        }
+    </script>
+</body>
+</html>
