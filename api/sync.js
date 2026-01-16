@@ -3,22 +3,23 @@ let globalState = {
   progress: 65,
   daysLeft: 45,
   funds: "ETB 12.4M",
-  videoUrl: "https://www.tiktok.com/",
-  videoDesc: "Week 18: Roof structure completed successfully",
-  contactPhone: "+251 91 234 5678",
+  videoUrl: "https://vt.tiktok.com/ZS5EwCPyn/",
+  videoDesc: "Building",
+  contactPhone: "+251913489062 | +251923461261",
+  lastUpdated: new Date().toISOString(),
   comments: [
     {
       id: 1,
       name: "Samuel G.",
       text: "This is amazing progress! God bless everyone involved in this project.",
-      date: "Oct 18, 2023",
+      date: new Date().toISOString(),
       type: "public"
     },
     {
       id: 2,
       name: "Anonymous",
       text: "Praying for the safety of all workers. Can't wait to see the finished building!",
-      date: "Oct 16, 2023",
+      date: new Date(Date.now() - 86400000).toISOString(),
       type: "anonymous"
     }
   ],
@@ -51,6 +52,7 @@ export default async function handler(req, res) {
         globalState = {
           ...globalState,
           ...data,
+          lastUpdated: new Date().toISOString(),
           timestamp: timestamp
         };
         
@@ -66,6 +68,7 @@ export default async function handler(req, res) {
           comment => comment.id !== commentId
         );
         globalState.timestamp = timestamp;
+        globalState.lastUpdated = new Date().toISOString();
         
         return res.status(200).json({
           success: true,
@@ -75,8 +78,12 @@ export default async function handler(req, res) {
       }
       
       if (action === 'add-comment') {
-        globalState.comments.unshift(data);
+        globalState.comments.unshift({
+          ...data,
+          date: new Date().toISOString()
+        });
         globalState.timestamp = timestamp;
+        globalState.lastUpdated = new Date().toISOString();
         
         return res.status(200).json({
           success: true,
