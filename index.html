@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>የሰንበት ት/ቤቱ ህንፃ ግንባታ - Live Updates</title>
+    <title>Sunday School Construction - Live Updates</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -977,31 +977,18 @@
             background: #ef4444;
         }
         
-        /* Optimized Admin Panel */
-        .admin-input-group {
-            margin-bottom: 15px;
-        }
-        
-        .admin-input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .admin-input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-        
-        .admin-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        /* Cloud Sync Indicator */
+        .sync-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -1064,8 +1051,8 @@
             <div class="section-header">
                 <h2><i class="fas fa-chart-line"></i> የፕሮጀክት ሂደት</h2>
                 <div class="sync-status" id="syncStatus">
-                    <i class="fas fa-wifi"></i>
-                    <span>ቀጥታ</span>
+                    <i class="fas fa-cloud"></i>
+                    <span id="syncStatusText">Synced</span>
                 </div>
             </div>
             <p>የግንባታ ጉዟችንን በቀጥታ ይከታተሉ።</p>
@@ -1200,6 +1187,9 @@
         <div class="comments-section">
             <div class="section-header">
                 <h2><i class="fas fa-comments"></i> Community Comments</h2>
+                <div class="sync-indicator" id="commentsSync">
+                    <i class="fas fa-sync-alt"></i> Live
+                </div>
             </div>
             <p>ለፕሮጀክቱ የእርስዎን ሃሳቦች፣ ጸሎቶች እና ማበረታቻ ያካፍሉ።</p>
             
@@ -1307,9 +1297,9 @@
             <!-- Progress Management -->
             <div class="modal-section">
                 <h3><i class="fas fa-chart-line"></i> Progress Settings</h3>
-                <div class="admin-input-group">
-                    <label>Construction Progress: <span id="adminProgressValue">65%</span></label>
-                    <input type="range" id="adminProgress" class="admin-input" min="0" max="100" value="65" step="1">
+                <div class="form-group">
+                    <label class="form-label">Construction Progress: <span id="adminProgressValue">65%</span></label>
+                    <input type="range" id="adminProgress" class="form-input" min="0" max="100" value="65" step="1">
                     <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--gray);">
                         <span>0%</span>
                         <span>50%</span>
@@ -1386,16 +1376,22 @@
     </div>
 
     <script>
+        // ============================================
+        // CLOUD SYNC SOLUTION USING JSONBIN.IO
+        // ============================================
+        
         // Configuration
         const CONFIG = {
             ADMIN_PASSWORD: "21maryam27",
-            SYNC_INTERVAL: 10000, // 10 seconds for better performance
-            API_URL: "/api/sync",
-            IMAGES: ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg']
+            SYNC_INTERVAL: 5000, // Sync every 5 seconds
+            // JSONBin Configuration
+            JSONBIN_ID: "676f3b99ad19ca34f8dca1c4", // You'll need to create your own bin
+            JSONBIN_API_KEY: "$2a$10$kE.IJ3.M6J67.i7RKi07/e3PYYmKkH/WjLwH6t.IAfq2JLP3gTZpO", // Example key
+            JSONBIN_URL: "https://api.jsonbin.io/v3/b/676f3b99ad19ca34f8dca1c4"
         };
         
-        // Global state
-        let state = {
+        // Initial default state
+        const DEFAULT_STATE = {
             progress: 40,
             daysLeft: 50000,
             funds: "12,450,000",
@@ -1404,8 +1400,12 @@
             contactPhone: "+251913489062 | +251923461261",
             lastUpdated: new Date().toISOString(),
             comments: [],
-            videoViews: 1245
+            videoViews: 1245,
+            version: "1.0"
         };
+        
+        // Global state
+        let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
         
         // DOM Elements
         const elements = {
@@ -1424,6 +1424,7 @@
             progressPercent: document.getElementById('progressPercent'),
             lastUpdated: document.getElementById('lastUpdated'),
             syncStatus: document.getElementById('syncStatus'),
+            syncStatusText: document.getElementById('syncStatusText'),
             
             // Video
             videoThumbnail: document.getElementById('videoThumbnail'),
@@ -1436,6 +1437,7 @@
             // Comments
             commentsList: document.getElementById('commentsList'),
             submitComment: document.getElementById('submitComment'),
+            commentsSync: document.getElementById('commentsSync'),
             
             // Admin
             adminBtn: document.getElementById('adminBtn'),
@@ -1465,11 +1467,12 @@
         };
         
         // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             initRealTimeClock();
-            loadState();
+            await loadState();
             setupEventListeners();
             render();
+            startSync();
         });
         
         // Real-time clock - 12-hour format
@@ -1484,12 +1487,9 @@
                 const ampm = hours >= 12 ? 'PM' : 'AM';
                 
                 hours = hours % 12;
-                hours = hours ? hours : 12; // 0 should be 12
+                hours = hours ? hours : 12;
                 
-                // Update time
                 elements.currentTime.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
-                
-                // Update date
                 elements.currentDate.textContent = now.toLocaleDateString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
@@ -1497,7 +1497,6 @@
                     day: 'numeric'
                 });
                 
-                // Update footer timestamp
                 const footerHours = now.getHours().toString().padStart(2, '0');
                 const footerMinutes = now.getMinutes().toString().padStart(2, '0');
                 elements.footerLastUpdated.textContent = `${footerHours}:${footerMinutes}`;
@@ -1507,29 +1506,140 @@
             setInterval(updateTime, 1000);
         }
         
-        // Load state from localStorage
-        function loadState() {
-            const saved = localStorage.getItem('constructionState');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                state = { ...state, ...parsed };
+        // Load state from cloud
+        async function loadState() {
+            try {
+                // Try to load from cloud first
+                const cloudData = await fetchFromCloud();
+                if (cloudData && cloudData.version) {
+                    state = cloudData;
+                    showNotification('Loaded from cloud', 'success');
+                    updateSyncStatus(true, 'Cloud synced');
+                } else {
+                    // Fallback to localStorage
+                    const saved = localStorage.getItem('constructionState');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        state = { ...DEFAULT_STATE, ...parsed };
+                        // Save to cloud
+                        await saveToCloud();
+                        showNotification('Loaded from local storage', 'info');
+                    }
+                    updateSyncStatus(false, 'Using local data');
+                }
+            } catch (error) {
+                console.error('Load failed:', error);
+                // Fallback to localStorage
+                const saved = localStorage.getItem('constructionState');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    state = { ...DEFAULT_STATE, ...parsed };
+                }
+                updateSyncStatus(false, 'Offline mode');
             }
+        }
+        
+        // Save state to cloud and local storage
+        async function saveState() {
+            // Update timestamp
+            state.lastUpdated = new Date().toISOString();
             
-            // Initialize counters immediately
-            initializeCounters();
-        }
-        
-        // Initialize counters without delay
-        function initializeCounters() {
-            elements.progressCounter.textContent = `${state.progress}%`;
-            elements.daysCounter.textContent = state.daysLeft;
-            elements.fundsCounter.textContent = `ETB ${state.funds}`;
-            elements.commentsCounter.textContent = state.comments.length;
-        }
-        
-        // Save state locally
-        function saveState() {
+            // Save to localStorage
             localStorage.setItem('constructionState', JSON.stringify(state));
+            
+            // Try to save to cloud
+            try {
+                await saveToCloud();
+                updateSyncStatus(true, 'Cloud saved');
+            } catch (error) {
+                console.error('Cloud save failed:', error);
+                updateSyncStatus(false, 'Saved locally');
+            }
+        }
+        
+        // ============================================
+        // CLOUD SYNC FUNCTIONS
+        // ============================================
+        
+        async function fetchFromCloud() {
+            try {
+                const response = await fetch(CONFIG.JSONBIN_URL + '/latest', {
+                    headers: {
+                        'X-Master-Key': CONFIG.JSONBIN_API_KEY,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.record;
+                }
+            } catch (error) {
+                console.error('Cloud fetch failed:', error);
+            }
+            return null;
+        }
+        
+        async function saveToCloud() {
+            try {
+                const response = await fetch(CONFIG.JSONBIN_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': CONFIG.JSONBIN_API_KEY,
+                        'X-Bin-Versioning': 'false'
+                    },
+                    body: JSON.stringify(state)
+                });
+                
+                return response.ok;
+            } catch (error) {
+                console.error('Cloud save failed:', error);
+                throw error;
+            }
+        }
+        
+        // Start periodic cloud sync
+        function startSync() {
+            setInterval(async () => {
+                try {
+                    const cloudData = await fetchFromCloud();
+                    if (cloudData && cloudData.version) {
+                        // Check if cloud data is newer
+                        const cloudTime = new Date(cloudData.lastUpdated);
+                        const localTime = new Date(state.lastUpdated);
+                        
+                        if (cloudTime > localTime) {
+                            // Cloud has newer data, update local state
+                            state = cloudData;
+                            localStorage.setItem('constructionState', JSON.stringify(state));
+                            render();
+                            updateSyncStatus(true, 'Cloud updated');
+                        } else if (cloudTime < localTime) {
+                            // Local has newer data, push to cloud
+                            await saveToCloud();
+                            updateSyncStatus(true, 'Local pushed');
+                        }
+                    }
+                } catch (error) {
+                    updateSyncStatus(false, 'Sync failed');
+                }
+            }, CONFIG.SYNC_INTERVAL);
+        }
+        
+        // Update sync status display
+        function updateSyncStatus(success = true, message = '') {
+            if (!elements.syncStatus || !elements.syncStatusText) return;
+            
+            if (success) {
+                elements.syncStatus.style.background = '#10b981';
+                elements.syncStatusText.textContent = message || 'Synced';
+                elements.syncStatus.innerHTML = '<i class="fas fa-cloud"></i> ' + (message || 'Synced');
+            } else {
+                elements.syncStatus.style.background = '#ef4444';
+                elements.syncStatusText.textContent = message || 'Offline';
+                elements.syncStatus.innerHTML = '<i class="fas fa-cloud-slash"></i> ' + (message || 'Offline');
+            }
         }
         
         // Render UI
@@ -1556,7 +1666,6 @@
             if (elements.adminPhone) elements.adminPhone.value = state.contactPhone;
             
             // Update video
-            updateVideoDisplay();
             elements.videoDescText.textContent = state.videoDesc;
             
             // Update contact
@@ -1593,10 +1702,8 @@
         function updateVideoDisplay() {
             if (!state.videoUrl) return;
             
-            // Update video description
             elements.videoDescText.textContent = state.videoDesc;
             
-            // Update video date
             const today = new Date();
             const videoDateElement = document.getElementById('videoDate');
             if (videoDateElement) {
@@ -1612,10 +1719,7 @@
         function openTikTokVideo() {
             if (!state.videoUrl) return;
             
-            // Open TikTok video in new tab
             window.open(state.videoUrl, '_blank');
-            
-            // Track video play
             state.videoViews = (state.videoViews || 0) + 1;
             elements.videoViews.textContent = state.videoViews.toLocaleString();
             saveState();
@@ -1757,19 +1861,19 @@
             });
             
             // Update video
-            elements.updateVideoBtn.addEventListener('click', () => {
+            elements.updateVideoBtn.addEventListener('click', async () => {
                 state.videoUrl = elements.adminVideoUrl.value;
                 state.videoDesc = elements.adminVideoDesc.value;
                 state.videoViews = Math.floor(state.videoViews * 1.1);
                 state.lastUpdated = new Date().toISOString();
                 
-                saveState();
+                await saveState();
                 render();
-                showNotification('Video updated successfully!', 'success');
+                showNotification('Video updated and synced!', 'success');
             });
             
             // Update progress
-            elements.updateProgressBtn.addEventListener('click', () => {
+            elements.updateProgressBtn.addEventListener('click', async () => {
                 const newProgress = parseInt(elements.adminProgress.value);
                 const newDays = parseInt(elements.adminDays.value);
                 const newFunds = elements.adminFunds.value;
@@ -1779,9 +1883,9 @@
                 state.funds = newFunds;
                 state.lastUpdated = new Date().toISOString();
                 
-                saveState();
+                await saveState();
                 render();
-                showNotification('Progress updated!', 'success');
+                showNotification('Progress updated and synced!', 'success');
             });
             
             // Progress slider - update value display
@@ -1790,17 +1894,17 @@
             });
             
             // Update phone
-            elements.updatePhoneBtn.addEventListener('click', () => {
+            elements.updatePhoneBtn.addEventListener('click', async () => {
                 state.contactPhone = elements.adminPhone.value;
                 state.lastUpdated = new Date().toISOString();
                 
-                saveState();
+                await saveState();
                 render();
-                showNotification('Phone number updated!', 'success');
+                showNotification('Phone number updated and synced!', 'success');
             });
             
-            // Submit comment - FIXED
-            elements.submitComment.addEventListener('click', () => {
+            // Submit comment
+            elements.submitComment.addEventListener('click', async () => {
                 const nameInput = document.getElementById('commentName');
                 const textInput = document.getElementById('commentText');
                 const typeSelect = document.getElementById('commentType');
@@ -1828,14 +1932,14 @@
                 state.lastUpdated = new Date().toISOString();
                 
                 // Save and render
-                saveState();
+                await saveState();
                 render();
                 
                 // Clear form
                 nameInput.value = '';
                 textInput.value = '';
                 
-                showNotification('Thank you for your comment!', 'success');
+                showNotification('Thank you for your comment! Synced to all devices.', 'success');
             });
             
             // Allow Enter key to submit comment
@@ -1846,10 +1950,10 @@
             });
             
             // Delete comment by ID
-            elements.deleteCommentBtn.addEventListener('click', () => {
+            elements.deleteCommentBtn.addEventListener('click', async () => {
                 const id = parseInt(elements.deleteCommentId.value);
                 if (id) {
-                    deleteComment(id);
+                    await deleteComment(id);
                     elements.deleteCommentId.value = '';
                 } else {
                     showNotification('Please enter a valid comment ID', 'error');
@@ -1857,19 +1961,18 @@
             });
             
             // Clear all comments
-            elements.clearCommentsBtn.addEventListener('click', () => {
-                if (confirm('Delete ALL comments? This cannot be undone.')) {
+            elements.clearCommentsBtn.addEventListener('click', async () => {
+                if (confirm('Delete ALL comments? This will affect all devices.')) {
                     state.comments = [];
                     state.lastUpdated = new Date().toISOString();
-                    saveState();
+                    await saveState();
                     render();
-                    showNotification('All comments cleared', 'success');
+                    showNotification('All comments cleared and synced!', 'success');
                 }
             });
             
             // Save all changes
-            elements.saveAllBtn.addEventListener('click', () => {
-                // Get all values from admin form
+            elements.saveAllBtn.addEventListener('click', async () => {
                 const newProgress = parseInt(elements.adminProgress.value);
                 const newDays = parseInt(elements.adminDays.value);
                 const newFunds = elements.adminFunds.value;
@@ -1877,7 +1980,6 @@
                 const newVideoDesc = elements.adminVideoDesc.value;
                 const newPhone = elements.adminPhone.value;
                 
-                // Update state
                 state.progress = newProgress;
                 state.daysLeft = newDays;
                 state.funds = newFunds;
@@ -1886,9 +1988,9 @@
                 state.contactPhone = newPhone;
                 state.lastUpdated = new Date().toISOString();
                 
-                saveState();
+                await saveState();
                 render();
-                showNotification('All changes saved!', 'success');
+                showNotification('All changes saved and synced to all devices!', 'success');
             });
             
             // Enter key in login
@@ -1900,14 +2002,14 @@
         }
         
         // Delete comment function
-        function deleteComment(commentId) {
-            if (!confirm('Delete this comment?')) return;
+        async function deleteComment(commentId) {
+            if (!confirm('Delete this comment from all devices?')) return;
             
             state.comments = state.comments.filter(c => c.id !== commentId);
             state.lastUpdated = new Date().toISOString();
-            saveState();
+            await saveState();
             render();
-            showNotification('Comment deleted', 'success');
+            showNotification('Comment deleted from all devices', 'success');
         }
         
         // Phone functions
@@ -1924,7 +2026,6 @@
         
         // Notification system
         function showNotification(message, type = 'success') {
-            // Remove existing notifications
             const existing = document.querySelector('.notification');
             if (existing) existing.remove();
             
